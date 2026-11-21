@@ -251,7 +251,7 @@ const groups = [
 ];
 
 /* ===== Logo settings ===== */
-const LOGO_DIR = "logos/";                          // folder that holds the logo files
+const LOGO_DIR = "logo/";                          // folder that holds the logo files
 const LOGO_EXTS = ["png", "jpg", "jpeg", "webp", "svg"]; // extensions to try, in order
 const slug = t => t.toLowerCase().replace(/đ/g, "d").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 // Priority: 1) logo = full link/path  2) file = file name in LOGO_DIR (e.g. "vtv1.webp")  3) channel name as a slug
