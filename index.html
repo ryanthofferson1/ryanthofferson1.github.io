@@ -225,11 +225,10 @@ dialog input[type=file] { padding: 8px; font-size: .85rem; }
 
 <script>
 const groups = [
-  { title: "Kênh quốc gia", channels: [
-    { badge: "360+", name: "TV360+ 9", file: "tv360.jpg", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" },
-    { badge: "VN", name: "Vietnam Today", file: "vntd.jpg", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
+  { title: "Kênh TV360", channels: [
+    { badge: "360+", name: "TV360+ 9", file: "tv360.jpg", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" }
   ]},
-  { title: "VTV", channels: [
+  { title: "Kênh quốc gia", channels: [
     { badge: "VTV1", name: "VTV1", file: "vtv1.webp", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
     { badge: "VTV2", name: "VTV2", file: "vtv2.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/QCFuDzHtJhpZNUhfXVg6Ag/1795284405/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8" },
     { badge: "VTV3", name: "VTV3", file: "vtv3.webp", url: "https://live-vtv-aws.vtvdigital.vn/FDbVNvQVnXVZ917Cpv0pnA/1795284000/aws/vtv3_free/live/vtv3_720p/chunks.m3u8" },
@@ -241,9 +240,10 @@ const groups = [
     { badge: "VTV7", name: "VTV7", file: "vtv7.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/yjvZzIe0P3rcS7cf1nL6zg/1795284711/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8" },
     { badge: "VTV8", name: "VTV8", file: "vtv8.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/yXVGYXFV-gux90rV8Z9F6Q/1795284726/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8" },
     { badge: "VTV9", name: "VTV9", file: "vtv9.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/WNfHg4BJH_67CmnhP8bqAg/1795284744/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8" },
-    { badge: "VTV10", name: "VTV10", file: "vtv10.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" }
+    { badge: "VTV10", name: "VTV10", file: "vtv10.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" },
+    { badge: "VN", name: "Vietnam Today", file: "vntd.jpg", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
   ]},
-  { title: "Đồng Tháp", channels: [
+  { title: "Kênh Địa Phương", channels: [
     { badge: "ĐT1", name: "Truyền hình Đồng Tháp 1", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT/thdttv/chunklist_w426586215.m3u8" },
     { badge: "ĐT2", name: "Truyền hình Đồng Tháp 2", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist_w824219143.m3u8" },
     { badge: "FM", name: "Phát thanh Đồng Tháp", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDTR/thdtradio/chunklist_w139852826.m3u8" }
@@ -257,7 +257,11 @@ const slug = t => t.toLowerCase().replace(/đ/g, "d").normalize("NFD").replace(/
 // Priority: 1) logo = full link/path  2) file = file name in LOGO_DIR (e.g. "vtv1.webp")  3) channel name as a slug
 function logoSources(c) {
   if (c.logo) return [c.logo];
-  if (c.file && /\.[a-z0-9]+$/i.test(c.file)) return [LOGO_DIR + c.file];   // file with extension: use exactly
+  if (c.file && /\.[a-z0-9]+$/i.test(c.file)) {
+    const base = c.file.replace(/\.[a-z0-9]+$/i, "");
+    const exts = [c.file.split(".").pop(), ...LOGO_EXTS, ...LOGO_EXTS.map(e => e.toUpperCase())];
+    return [...new Set(exts)].map(e => LOGO_DIR + base + "." + e);
+  }
   const base = c.file || slug(c.name);                                    // no extension: try each one
   return base ? LOGO_EXTS.map(e => LOGO_DIR + base + "." + e) : [];
 }
