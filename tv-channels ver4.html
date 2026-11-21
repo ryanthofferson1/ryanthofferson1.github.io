@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kênh truyền hình</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f3efe8;
+  --surface: #fffdf9;
+  --ink: #1c2230;
+  --muted: #6b7280;
+  --line: #e2dccf;
+  --accent: #e03a3e;
+  --badge: #1c2230;
+  --badge-ink: #fffdf9;
+  --shadow: 0 1px 0 rgba(28,34,48,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151c;
+    --surface: #1b202b;
+    --ink: #f1ede4;
+    --muted: #9aa1ae;
+    --line: #2b3240;
+    --accent: #ff5a5f;
+    --badge: #f1ede4;
+    --badge-ink: #12151c;
+    --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+html { color-scheme: light dark; }
+body {
+  margin: 0;
+  padding: 40px 20px 60px;
+  font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+.wrap { max-width: 760px; margin: 0 auto; }
+
+header { margin-bottom: 28px; }
+h1 {
+  margin: 0 0 6px;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.live-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.8s ease-out infinite;
+  flex: none;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); }
+  100% { box-shadow: 0 0 0 14px transparent; }
+}
+.sub { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.search {
+  position: sticky; top: 12px; z-index: 5;
+  margin: 0 0 32px;
+}
+.search input {
+  width: 100%;
+  padding: 14px 18px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  outline: none;
+}
+.search input:focus { border-color: var(--ink); }
+
+section { margin-bottom: 34px; }
+h2 {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 12px;
+  font-size: 1.1rem; font-weight: 700;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ink);
+}
+h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.admin-link { background: none; border: 0; color: var(--muted); font: inherit; font-size: .85rem; text-decoration: underline; cursor: pointer; padding: 6px 0; }
+.admin-link:hover { color: var(--ink); }
+.adminbar { display: none; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; margin-bottom: 20px; background: var(--ink); color: var(--bg); border-radius: 12px; font-size: .9rem; }
+body.is-admin .adminbar { display: flex; }
+.adminbar strong { margin-right: auto; padding-left: 6px; }
+.btn { font: inherit; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--bg); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.adminbar .btn { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+.adminbar .btn.ghost { background: transparent; color: var(--bg); border-color: var(--bg); }
+.btn:focus-visible, .icon-btn:focus-visible, .admin-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.channel { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); transition: border-color .15s; }
+.channel:hover { border-color: var(--ink); }
+.open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 12px 10px 12px 12px; color: var(--ink); text-decoration: none; border-radius: 12px; }
+.open:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.logo { flex: none; width: 56px; height: 40px; display: grid; place-items: center; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.logo img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 3px; }
+.logo svg { width: 22px; height: 22px; fill: none; stroke: #9aa1ae; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.name { flex: 1; font-weight: 500; font-size: .98rem; min-width: 0; }
+.play { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.channel:hover .play { background: var(--accent); color: #fff; }
+.play svg { width: 12px; height: 12px; margin-left: 2px; fill: currentColor; }
+.actions { display: none; gap: 4px; padding-right: 10px; }
+body.is-admin .actions { display: flex; }
+.icon-btn { width: 32px; height: 32px; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; cursor: pointer; font: inherit; }
+.icon-btn:hover { border-color: var(--ink); }
+.icon-btn.del:hover { color: var(--accent); border-color: var(--accent); }
+
+dialog { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); padding: 24px; width: min(440px, 92vw); font-family: inherit; }
+dialog::backdrop { background: rgba(0,0,0,.55); }
+dialog h3 { margin: 0 0 4px; font-size: 1.2rem; }
+dialog label { display: block; font-size: .85rem; font-weight: 500; margin: 14px 0 4px; }
+dialog input { width: 100%; padding: 10px 12px; font: inherit; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; }
+dialog input:focus { outline: none; border-color: var(--ink); }
+dialog input[type=file] { padding: 8px; font-size: .85rem; }
+.row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+.err { color: var(--accent); font-size: .85rem; min-height: 1.2em; margin: 10px 0 0; }
+.prev { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: .85rem; color: var(--muted); }
+.prev .logo { width: 72px; height: 52px; }
+.empty { display: none; text-align: center; color: var(--muted); padding: 30px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
+  .channel { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="top">
+      <h1><span class="live-dot"></span>Kênh truyền hình</h1>
+      <button class="admin-link" id="adminBtn" type="button">Quản trị</button>
+    </div>
+    <p class="sub">Chọn một kênh để xem trực tiếp.</p>
+  </header>
+
+  <div class="adminbar">
+    <strong>Chế độ quản trị</strong>
+    <button class="btn" id="addBtn" type="button">+ Thêm kênh</button>
+    <button class="btn ghost" id="pwBtn" type="button">Đổi tài khoản</button>
+    <button class="btn ghost" id="resetBtn" type="button">Khôi phục mặc định</button>
+    <button class="btn ghost" id="outBtn" type="button">Đăng xuất</button>
+  </div>
+
+  <div class="search">
+    <input id="q" type="search" placeholder="Tìm kênh…" aria-label="Tìm kênh" autocomplete="off">
+  </div>
+
+  <main id="list"></main>
+  <p class="empty" id="empty">Không tìm thấy kênh nào. Thử từ khóa khác.</p>
+</div>
+
+<dialog id="loginDlg">
+  <form id="loginForm">
+    <h3>Đăng nhập quản trị</h3>
+    <label for="lu">Tên đăng nhập</label>
+    <input id="lu" type="text" autocomplete="username" required>
+    <label for="lp">Mật khẩu</label>
+    <input id="lp" type="password" autocomplete="current-password" required>
+    <p class="err" id="loginErr"></p>
+    <div class="row">
+      <button class="btn ghost" type="button" data-close="loginDlg">Hủy</button>
+      <button class="btn" type="submit">Đăng nhập</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="chDlg">
+  <form id="chForm">
+    <h3 id="chTitle">Thêm kênh</h3>
+    <label for="cn">Tên kênh</label>
+    <input id="cn" type="text" required>
+    <label for="cu">Liên kết (m3u8)</label>
+    <input id="cu" type="text" inputmode="url" placeholder="https://…" required>
+    <label for="cg">Nhóm</label>
+    <input id="cg" type="text" list="groupList" placeholder="VD: VTV">
+    <datalist id="groupList"></datalist>
+    <label for="cl">Logo (liên kết ảnh)</label>
+    <input id="cl" type="text" inputmode="url" placeholder="https://…/logo.png">
+    <label for="cf">hoặc tải ảnh lên</label>
+    <input id="cf" type="file" accept="image/*">
+    <div class="prev"><span class="logo" id="prevLogo"></span><button class="btn ghost" type="button" id="clearLogo">Xóa logo</button></div>
+    <p class="err" id="chErr"></p>
+    <div class="row">
+      <button class="btn ghost" type="button" data-close="chDlg">Hủy</button>
+      <button class="btn" type="submit">Lưu</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="pwDlg">
+  <form id="pwForm">
+    <h3>Đổi tài khoản quản trị</h3>
+    <label for="nu">Tên đăng nhập mới</label>
+    <input id="nu" type="text" autocomplete="username" required>
+    <label for="np">Mật khẩu mới (ít nhất 6 ký tự)</label>
+    <input id="np" type="password" autocomplete="new-password" minlength="6" required>
+    <div class="row">
+      <button class="btn ghost" type="button" data-close="pwDlg">Hủy</button>
+      <button class="btn" type="submit">Lưu</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+const groups = [
+  { title: "Kênh quốc gia", channels: [
+    { badge: "360+", name: "TV360+ 9", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" },
+    { badge: "VN", name: "Vietnam Today", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
+  ]},
+  { title: "VTV", channels: [
+    { badge: "VTV1", name: "VTV1", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
+    { badge: "VTV2", name: "VTV2", url: "https://vtvgolive-vtv02.vtvdigital.vn/QCFuDzHtJhpZNUhfXVg6Ag/1795284405/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8" },
+    { badge: "VTV3", name: "VTV3", url: "https://live-vtv-aws.vtvdigital.vn/FDbVNvQVnXVZ917Cpv0pnA/1795284000/aws/vtv3_free/live/vtv3_720p/chunks.m3u8" },
+    { badge: "VTV4", name: "VTV4", url: "https://vtvgolive-vtv02.vtvdigital.vn/YEKbO1sMWn8Ae01IjlUy_A/1795284546/hls/vtv/live/vtv4__vtv720p-h264/index.m3u8" },
+    { badge: "VTV5", name: "VTV5", url: "https://vtvgolive-vtv02.vtvdigital.vn/WEYbsTiEBCeaixLf2qZYaQ/1795284587/hls/vtv/live/vtv5__vtv720p-h264/index.m3u8" },
+    { badge: "VTV5", name: "VTV5 Tây Nam Bộ", url: "https://vtvgolive-vtv02.vtvdigital.vn/HC8_KMGPyAk9wmk_TDdmnw/1795284615/hls/vtv/live/vtv5tnb__vtv720p-h264/index.m3u8" },
+    { badge: "VTV5", name: "VTV5 Tây Nguyên", url: "https://vtvgolive-vtv02.vtvdigital.vn/O5hrQIIOPTemxBfS_TpG9g/1795284661/hls/vtv/live/vtv5tn__vtv720p-h264/index.m3u8" },
+    { badge: "VTV6", name: "VTV6", url: "https://live-vtv-aws.vtvdigital.vn/R2KQJqgxUU8QyAsCZnr0tg/1795284000/aws/vtv6_free/live/vtv6_720p/chunks.m3u8" },
+    { badge: "VTV7", name: "VTV7", url: "https://vtvgolive-vtv02.vtvdigital.vn/yjvZzIe0P3rcS7cf1nL6zg/1795284711/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8" },
+    { badge: "VTV8", name: "VTV8", url: "https://vtvgolive-vtv02.vtvdigital.vn/yXVGYXFV-gux90rV8Z9F6Q/1795284726/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8" },
+    { badge: "VTV9", name: "VTV9", url: "https://vtvgolive-vtv02.vtvdigital.vn/WNfHg4BJH_67CmnhP8bqAg/1795284744/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8" },
+    { badge: "VTV10", name: "VTV10", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" }
+  ]},
+  { title: "Đồng Tháp", channels: [
+    { badge: "ĐT1", name: "Truyền hình Đồng Tháp 1", url: "https://618b88f69e53b.streamlock.net/THDT/thdttv/chunklist_w426586215.m3u8" },
+    { badge: "ĐT2", name: "Truyền hình Đồng Tháp 2", url: "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist_w824219143.m3u8" },
+    { badge: "FM", name: "Phát thanh Đồng Tháp", url: "https://618b88f69e53b.streamlock.net/THDTR/thdtradio/chunklist_w139852826.m3u8" }
+  ]}
+];
+
+const $ = id => document.getElementById(id);
+const KEY = "tvch_channels", AUTH = "tvch_auth", SESS = "tvch_admin";
+const TV = '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 21h6M12 18v3"/></svg>';
+const PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M0 0l12 6-12 6z"/></svg>';
+const uid = () => Math.random().toString(36).slice(2, 10);
+
+function defaults() {
+  const out = [];
+  groups.forEach(g => g.channels.forEach(c => out.push({ id: uid(), group: g.title, name: c.name, url: c.url, logo: c.logo || "" })));
+  return out;
+}
+function load() {
+  try { const s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
+  return defaults();
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(channels)); }
+  catch (e) { alert("Không thể lưu dữ liệu. Hãy thử logo nhỏ hơn."); }
+}
+let channels = load();
+let isAdmin = false;
+try { isAdmin = sessionStorage.getItem(SESS) === "1"; } catch (e) {}
+
+async function sha(s) {
+  if (window.crypto && crypto.subtle) {
+    const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+  }
+  let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0;
+  return "d" + h;
+}
+async function getAuth() {
+  try { const a = JSON.parse(localStorage.getItem(AUTH)); if (a && a.user && a.hash) return a; } catch (e) {}
+  const a = { user: "admin", hash: await sha("admin123") };
+  try { localStorage.setItem(AUTH, JSON.stringify(a)); } catch (e) {}
+  return a;
+}
+
+function logoEl(src) {
+  const s = document.createElement("span");
+  s.className = "logo";
+  const icon = () => { s.innerHTML = TV; };
+  if (src) { const i = document.createElement("img"); i.alt = ""; i.src = src; i.onerror = icon; s.appendChild(i); }
+  else icon();
+  return s;
+}
+
+function render(term = "") {
+  const t = term.trim().toLowerCase();
+  const list = $("list");
+  list.innerHTML = "";
+  let total = 0;
+  [...new Set(channels.map(c => c.group || "Khác"))].forEach(gn => {
+    const items = channels.filter(c => (c.group || "Khác") === gn && (!t || c.name.toLowerCase().includes(t)));
+    if (!items.length) return;
+    total += items.length;
+    const sec = document.createElement("section");
+    const h = document.createElement("h2");
+    h.textContent = gn;
+    const sm = document.createElement("small");
+    sm.textContent = items.length + " kênh";
+    h.appendChild(sm);
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    items.forEach(c => {
+      const card = document.createElement("div");
+      card.className = "channel";
+      const a = document.createElement("a");
+      a.className = "open";
+      a.href = c.url;
+      const n = document.createElement("span");
+      n.className = "name";
+      n.textContent = c.name;
+      const p = document.createElement("span");
+      p.className = "play";
+      p.innerHTML = PLAY;
+      a.append(logoEl(c.logo), n, p);
+      const act = document.createElement("div");
+      act.className = "actions";
+      const eb = document.createElement("button");
+      eb.className = "icon-btn"; eb.type = "button"; eb.textContent = "✎";
+      eb.setAttribute("aria-label", "Sửa " + c.name);
+      eb.onclick = () => openEdit(c.id);
+      const db = document.createElement("button");
+      db.className = "icon-btn del"; db.type = "button"; db.textContent = "✕";
+      db.setAttribute("aria-label", "Xóa " + c.name);
+      db.onclick = () => {
+        if (confirm('Xóa kênh "' + c.name + '"?')) {
+          channels = channels.filter(x => x.id !== c.id);
+          save(); render($("q").value);
+        }
+      };
+      act.append(eb, db);
+      card.append(a, act);
+      grid.appendChild(card);
+    });
+    sec.append(h, grid);
+    list.appendChild(sec);
+  });
+  $("empty").style.display = total ? "none" : "block";
+}
+
+function applyAdmin() {
+  document.body.classList.toggle("is-admin", isAdmin);
+  $("adminBtn").hidden = isAdmin;
+  render($("q").value);
+}
+
+/* ---- dialogs ---- */
+document.querySelectorAll("[data-close]").forEach(b => b.onclick = () => $(b.dataset.close).close());
+
+$("adminBtn").onclick = () => { $("loginForm").reset(); $("loginErr").textContent = ""; $("loginDlg").showModal(); $("lu").focus(); };
+$("loginForm").onsubmit = async e => {
+  e.preventDefault();
+  const a = await getAuth();
+  const ok = $("lu").value.trim() === a.user && (await sha($("lp").value)) === a.hash;
+  if (!ok) { $("loginErr").textContent = "Sai tên đăng nhập hoặc mật khẩu."; return; }
+  isAdmin = true;
+  try { sessionStorage.setItem(SESS, "1"); } catch (e) {}
+  $("loginDlg").close();
+  applyAdmin();
+};
+$("outBtn").onclick = () => {
+  isAdmin = false;
+  try { sessionStorage.removeItem(SESS); } catch (e) {}
+  applyAdmin();
+};
+$("resetBtn").onclick = () => {
+  if (confirm("Khôi phục danh sách kênh ban đầu? Mọi thay đổi sẽ bị mất.")) { channels = defaults(); save(); render($("q").value); }
+};
+$("pwBtn").onclick = () => { $("pwForm").reset(); $("pwDlg").showModal(); };
+$("pwForm").onsubmit = async e => {
+  e.preventDefault();
+  const a = { user: $("nu").value.trim(), hash: await sha($("np").value) };
+  try { localStorage.setItem(AUTH, JSON.stringify(a)); } catch (er) {}
+  $("pwDlg").close();
+  alert("Đã cập nhật tài khoản quản trị.");
+};
+
+/* ---- add / edit ---- */
+let editId = null, pendingLogo = "";
+function setPrev() { const p = $("prevLogo"); p.replaceWith(Object.assign(logoEl(pendingLogo), { id: "prevLogo" })); }
+function openEdit(id) {
+  const c = channels.find(x => x.id === id) || { name: "", url: "", group: "", logo: "" };
+  editId = id;
+  $("chTitle").textContent = id ? "Sửa kênh" : "Thêm kênh";
+  $("cn").value = c.name; $("cu").value = c.url; $("cg").value = c.group;
+  pendingLogo = c.logo || "";
+  $("cl").value = pendingLogo.startsWith("data:") ? "" : pendingLogo;
+  $("cf").value = ""; $("chErr").textContent = "";
+  $("groupList").innerHTML = [...new Set(channels.map(x => x.group))].map(g => '<option value="' + g.replace(/"/g, "&quot;") + '">').join("");
+  setPrev();
+  $("chDlg").showModal();
+}
+$("addBtn").onclick = () => openEdit(null);
+$("cl").oninput = () => { pendingLogo = $("cl").value.trim(); setPrev(); };
+$("clearLogo").onclick = () => { pendingLogo = ""; $("cl").value = ""; $("cf").value = ""; setPrev(); };
+$("cf").onchange = () => {
+  const f = $("cf").files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, 160 / img.width, 120 / img.height);
+      const cv = document.createElement("canvas");
+      cv.width = Math.max(1, Math.round(img.width * k));
+      cv.height = Math.max(1, Math.round(img.height * k));
+      cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+      pendingLogo = cv.toDataURL("image/png");
+      $("cl").value = "";
+      setPrev();
+    };
+    img.onerror = () => { $("chErr").textContent = "Không đọc được ảnh này."; };
+    img.src = r.result;
+  };
+  r.readAsDataURL(f);
+};
+$("chForm").onsubmit = e => {
+  e.preventDefault();
+  const url = $("cu").value.trim();
+  if (!/^https?:\/\//i.test(url)) { $("chErr").textContent = "Liên kết phải bắt đầu bằng http:// hoặc https://"; return; }
+  const data = { name: $("cn").value.trim(), url, group: $("cg").value.trim() || "Khác", logo: pendingLogo };
+  if (editId) Object.assign(channels.find(x => x.id === editId), data);
+  else channels.push({ id: uid(), ...data });
+  save();
+  $("chDlg").close();
+  render($("q").value);
+};
+
+$("q").addEventListener("input", e => render(e.target.value));
+getAuth();
+applyAdmin();
+</script>
+</body>
+</html>
