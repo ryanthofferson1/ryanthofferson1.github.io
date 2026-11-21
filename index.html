@@ -108,6 +108,15 @@ h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
 .play { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
 .channel:hover .play { background: var(--accent); color: #fff; }
 .play svg { width: 12px; height: 12px; margin-left: 2px; fill: currentColor; }
+.player { border: 0; padding: 0; width: min(960px, 96vw); background: #000; border-radius: 14px; overflow: hidden; }
+.player::backdrop { background: rgba(0,0,0,.7); }
+.player-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--surface); color: var(--ink); font-size: .9rem; }
+.player-bar span { display: flex; align-items: center; gap: 14px; }
+.player-bar a { color: var(--accent); }
+.player-bar button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.player-bar button:hover { border-color: var(--ink); }
+.player-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.player-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .empty { display: none; text-align: center; color: var(--muted); padding: 30px 0; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -131,30 +140,42 @@ h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
   <p class="empty" id="empty">Không tìm thấy kênh nào. Thử từ khóa khác.</p>
 </div>
 
+<dialog class="player" id="player">
+  <div class="player-bar">
+    <strong id="pTitle"></strong>
+    <span><a id="pLink" target="_blank" rel="noopener nofollow">Mở trang gốc</a><button id="pClose" type="button">Đóng</button></span>
+  </div>
+  <div class="player-frame" id="pFrame"></div>
+</dialog>
+
 <script>
 const groups = [
   { title: "Kênh TV360", channels: [
     { badge: "360+", name: "TV360+ 9", file: "tv360.jpg", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" }
   ]},
   { title: "Kênh quốc gia", channels: [
-    { badge: "VTV1", name: "VTV1", file: "vtv1.webp", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
-    { badge: "VTV2", name: "VTV2", file: "vtv2.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/QCFuDzHtJhpZNUhfXVg6Ag/1795284405/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8" },
-    { badge: "VTV3", name: "VTV3", file: "vtv3.webp", url: "https://live-vtv-aws.vtvdigital.vn/FDbVNvQVnXVZ917Cpv0pnA/1795284000/aws/vtv3_free/live/vtv3_720p/chunks.m3u8" },
-    { badge: "VTV4", name: "VTV4", file: "vtv4.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/YEKbO1sMWn8Ae01IjlUy_A/1795284546/hls/vtv/live/vtv4__vtv720p-h264/index.m3u8" },
-    { badge: "VTV5", name: "VTV5", file: "vtv5.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/WEYbsTiEBCeaixLf2qZYaQ/1795284587/hls/vtv/live/vtv5__vtv720p-h264/index.m3u8" },
-    { badge: "VTV5", name: "VTV5 Tây Nam Bộ", file: "vtv5tnb.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/HC8_KMGPyAk9wmk_TDdmnw/1795284615/hls/vtv/live/vtv5tnb__vtv720p-h264/index.m3u8" },
-    { badge: "VTV5", name: "VTV5 Tây Nguyên", file: "vtv5tn.jpg", url: "https://vtvgolive-vtv02.vtvdigital.vn/O5hrQIIOPTemxBfS_TpG9g/1795284661/hls/vtv/live/vtv5tn__vtv720p-h264/index.m3u8" },
-    { badge: "VTV6", name: "VTV6", file: "vtv6.webp", url: "https://live-vtv-aws.vtvdigital.vn/R2KQJqgxUU8QyAsCZnr0tg/1795284000/aws/vtv6_free/live/vtv6_720p/chunks.m3u8" },
-    { badge: "VTV7", name: "VTV7", file: "vtv7.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/yjvZzIe0P3rcS7cf1nL6zg/1795284711/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8" },
-    { badge: "VTV8", name: "VTV8", file: "vtv8.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/yXVGYXFV-gux90rV8Z9F6Q/1795284726/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8" },
-    { badge: "VTV9", name: "VTV9", file: "vtv9.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/WNfHg4BJH_67CmnhP8bqAg/1795284744/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8" },
-    { badge: "VTV10", name: "VTV10", file: "vtv10.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" },
-    { badge: "VN", name: "Vietnam Today", file: "vntd.jpg", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
+    { name: "VTV1", file: "vtv1.webp", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
+    { name: "VTV2", file: "vtv2.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/QCFuDzHtJhpZNUhfXVg6Ag/1795284405/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8" },
+    { name: "VTV3", file: "vtv3.webp", url: "https://live-vtv-aws.vtvdigital.vn/FDbVNvQVnXVZ917Cpv0pnA/1795284000/aws/vtv3_free/live/vtv3_720p/chunks.m3u8" },
+    { name: "VTV4", file: "vtv4.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/YEKbO1sMWn8Ae01IjlUy_A/1795284546/hls/vtv/live/vtv4__vtv720p-h264/index.m3u8" },
+    { name: "VTV5", file: "vtv5.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/WEYbsTiEBCeaixLf2qZYaQ/1795284587/hls/vtv/live/vtv5__vtv720p-h264/index.m3u8" },
+    { name: "VTV5 Tây Nam Bộ", file: "vtv5tnb.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/HC8_KMGPyAk9wmk_TDdmnw/1795284615/hls/vtv/live/vtv5tnb__vtv720p-h264/index.m3u8" },
+    { name: "VTV5 Tây Nguyên", file: "vtv5tn.jpg", url: "https://vtvgolive-vtv02.vtvdigital.vn/O5hrQIIOPTemxBfS_TpG9g/1795284661/hls/vtv/live/vtv5tn__vtv720p-h264/index.m3u8" },
+    { name: "VTV6", file: "vtv6.webp", url: "https://live-vtv-aws.vtvdigital.vn/R2KQJqgxUU8QyAsCZnr0tg/1795284000/aws/vtv6_free/live/vtv6_720p/chunks.m3u8" },
+    { name: "VTV7", file: "vtv7.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/yjvZzIe0P3rcS7cf1nL6zg/1795284711/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8" },
+    { name: "VTV8", file: "vtv8.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/yXVGYXFV-gux90rV8Z9F6Q/1795284726/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8" },
+    { name: "VTV9", file: "vtv9.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/WNfHg4BJH_67CmnhP8bqAg/1795284744/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8" },
+    { name: "VTV10", file: "vtv10.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" },
+    { name: "Vietnam Today", file: "vntd.jpg", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
   ]},
   { title: "Kênh Địa Phương", channels: [
-    { badge: "ĐT1", name: "Truyền hình Đồng Tháp 1", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT/thdttv/chunklist_w426586215.m3u8" },
-    { badge: "ĐT2", name: "Truyền hình Đồng Tháp 2", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist_w824219143.m3u8" },
-    { badge: "FM", name: "Phát thanh Đồng Tháp", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDTR/thdtradio/chunklist_w139852826.m3u8" }
+    { name: "Truyền hình Đồng Tháp 1", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT/thdttv/chunklist_w426586215.m3u8" },
+    { name: "Truyền hình Đồng Tháp 2", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist_w824219143.m3u8" },
+    { name: "Phát thanh Đồng Tháp", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDTR/thdtradio/chunklist_w139852826.m3u8" },
+    { name: "HTV9", embed: "https://tvivu.com/embed/htv9", watch: "https://tvivu.com/watch/htv9" }
+  ]}
+  { title: "Kênh HTV", channels: [
+    { name: "HTV9", embed: "https://tvivu.com/embed/htv9", watch: "https://tvivu.com/watch/htv9" } 
   ]}
 ];
 
@@ -218,7 +239,12 @@ function render(term = "") {
       card.className = "channel";
       const a = document.createElement("a");
       a.className = "open";
-      a.href = c.url;
+      a.href = c.embed ? (c.watch || c.embed) : c.url;
+      if (c.embed) a.addEventListener("click", e => {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+        e.preventDefault();
+        openPlayer(c);
+      });
       const n = document.createElement("span");
       n.className = "name";
       n.textContent = c.name;
@@ -234,6 +260,25 @@ function render(term = "") {
   });
   $("empty").style.display = total ? "none" : "block";
 }
+
+/* ---- embed-only channels ---- */
+function openPlayer(c) {
+  if (!/^https:\/\//i.test(c.embed)) return;
+  $("pTitle").textContent = c.name;
+  const l = $("pLink");
+  l.href = c.watch || c.embed;
+  l.hidden = false;
+  const f = document.createElement("iframe");
+  f.src = c.embed;
+  f.title = c.name;
+  f.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture";
+  f.allowFullscreen = true;
+  $("pFrame").replaceChildren(f);
+  $("player").showModal();
+}
+$("pClose").onclick = () => $("player").close();
+$("player").addEventListener("close", () => $("pFrame").replaceChildren());
+$("player").addEventListener("click", e => { if (e.target === $("player")) $("player").close(); });
 
 $("q").addEventListener("input", e => render(e.target.value));
 render();
