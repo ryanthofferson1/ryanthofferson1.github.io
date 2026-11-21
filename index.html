@@ -97,18 +97,6 @@ h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 10px;
 }
-.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.admin-link { background: none; border: 0; color: var(--muted); font: inherit; font-size: .85rem; text-decoration: underline; cursor: pointer; padding: 6px 0; }
-.admin-link:hover { color: var(--ink); }
-.adminbar { display: none; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; margin-bottom: 20px; background: var(--ink); color: var(--bg); border-radius: 12px; font-size: .9rem; }
-body.is-admin .adminbar { display: flex; }
-.adminbar strong { margin-right: auto; padding-left: 6px; }
-.btn { font: inherit; font-weight: 500; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--bg); cursor: pointer; }
-.btn.ghost { background: transparent; color: var(--ink); }
-.adminbar .btn { background: var(--bg); color: var(--ink); border-color: var(--bg); }
-.adminbar .btn.ghost { background: transparent; color: var(--bg); border-color: var(--bg); }
-.btn:focus-visible, .icon-btn:focus-visible, .admin-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-
 .channel { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); transition: border-color .15s; }
 .channel:hover { border-color: var(--ink); }
 .open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 12px 10px 12px 12px; color: var(--ink); text-decoration: none; border-radius: 12px; }
@@ -120,23 +108,6 @@ body.is-admin .adminbar { display: flex; }
 .play { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
 .channel:hover .play { background: var(--accent); color: #fff; }
 .play svg { width: 12px; height: 12px; margin-left: 2px; fill: currentColor; }
-.actions { display: none; gap: 4px; padding-right: 10px; }
-body.is-admin .actions { display: flex; }
-.icon-btn { width: 32px; height: 32px; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; cursor: pointer; font: inherit; }
-.icon-btn:hover { border-color: var(--ink); }
-.icon-btn.del:hover { color: var(--accent); border-color: var(--accent); }
-
-dialog { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); padding: 24px; width: min(440px, 92vw); font-family: inherit; }
-dialog::backdrop { background: rgba(0,0,0,.55); }
-dialog h3 { margin: 0 0 4px; font-size: 1.2rem; }
-dialog label { display: block; font-size: .85rem; font-weight: 500; margin: 14px 0 4px; }
-dialog input { width: 100%; padding: 10px 12px; font: inherit; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; }
-dialog input:focus { outline: none; border-color: var(--ink); }
-dialog input[type=file] { padding: 8px; font-size: .85rem; }
-.row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
-.err { color: var(--accent); font-size: .85rem; min-height: 1.2em; margin: 10px 0 0; }
-.prev { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: .85rem; color: var(--muted); }
-.prev .logo { width: 72px; height: 52px; }
 .empty { display: none; text-align: center; color: var(--muted); padding: 30px 0; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -148,20 +119,9 @@ dialog input[type=file] { padding: 8px; font-size: .85rem; }
 <body>
 <div class="wrap">
   <header>
-    <div class="top">
-      <h1><span class="live-dot"></span>Kênh truyền hình</h1>
-      <button class="admin-link" id="adminBtn" type="button">Quản trị</button>
-    </div>
+    <h1><span class="live-dot"></span>Kênh truyền hình</h1>
     <p class="sub">Chọn một kênh để xem trực tiếp.</p>
   </header>
-
-  <div class="adminbar">
-    <strong>Chế độ quản trị</strong>
-    <button class="btn" id="addBtn" type="button">+ Thêm kênh</button>
-    <button class="btn ghost" id="pwBtn" type="button">Đổi tài khoản</button>
-    <button class="btn ghost" id="resetBtn" type="button">Khôi phục mặc định</button>
-    <button class="btn ghost" id="outBtn" type="button">Đăng xuất</button>
-  </div>
 
   <div class="search">
     <input id="q" type="search" placeholder="Tìm kênh…" aria-label="Tìm kênh" autocomplete="off">
@@ -170,58 +130,6 @@ dialog input[type=file] { padding: 8px; font-size: .85rem; }
   <main id="list"></main>
   <p class="empty" id="empty">Không tìm thấy kênh nào. Thử từ khóa khác.</p>
 </div>
-
-<dialog id="loginDlg">
-  <form id="loginForm">
-    <h3>Đăng nhập quản trị</h3>
-    <label for="lu">Tên đăng nhập</label>
-    <input id="lu" type="text" autocomplete="username" required>
-    <label for="lp">Mật khẩu</label>
-    <input id="lp" type="password" autocomplete="current-password" required>
-    <p class="err" id="loginErr"></p>
-    <div class="row">
-      <button class="btn ghost" type="button" data-close="loginDlg">Hủy</button>
-      <button class="btn" type="submit">Đăng nhập</button>
-    </div>
-  </form>
-</dialog>
-
-<dialog id="chDlg">
-  <form id="chForm">
-    <h3 id="chTitle">Thêm kênh</h3>
-    <label for="cn">Tên kênh</label>
-    <input id="cn" type="text" required>
-    <label for="cu">Liên kết (m3u8)</label>
-    <input id="cu" type="text" inputmode="url" placeholder="https://…" required>
-    <label for="cg">Nhóm</label>
-    <input id="cg" type="text" list="groupList" placeholder="VD: VTV">
-    <datalist id="groupList"></datalist>
-    <label for="cl">Logo (liên kết ảnh)</label>
-    <input id="cl" type="text" inputmode="url" placeholder="https://…/logo.png">
-    <label for="cf">hoặc tải ảnh lên</label>
-    <input id="cf" type="file" accept="image/*">
-    <div class="prev"><span class="logo" id="prevLogo"></span><button class="btn ghost" type="button" id="clearLogo">Xóa logo</button></div>
-    <p class="err" id="chErr"></p>
-    <div class="row">
-      <button class="btn ghost" type="button" data-close="chDlg">Hủy</button>
-      <button class="btn" type="submit">Lưu</button>
-    </div>
-  </form>
-</dialog>
-
-<dialog id="pwDlg">
-  <form id="pwForm">
-    <h3>Đổi tài khoản quản trị</h3>
-    <label for="nu">Tên đăng nhập mới</label>
-    <input id="nu" type="text" autocomplete="username" required>
-    <label for="np">Mật khẩu mới (ít nhất 6 ký tự)</label>
-    <input id="np" type="password" autocomplete="new-password" minlength="6" required>
-    <div class="row">
-      <button class="btn ghost" type="button" data-close="pwDlg">Hủy</button>
-      <button class="btn" type="submit">Lưu</button>
-    </div>
-  </form>
-</dialog>
 
 <script>
 const groups = [
@@ -268,42 +176,11 @@ function logoSources(c) {
 /* ========================= */
 
 const $ = id => document.getElementById(id);
-const KEY = "tvch_channels", AUTH = "tvch_auth", SESS = "tvch_admin";
 const TV = '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 21h6M12 18v3"/></svg>';
 const PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M0 0l12 6-12 6z"/></svg>';
-const uid = () => Math.random().toString(36).slice(2, 10);
 
-function defaults() {
-  const out = [];
-  groups.forEach(g => g.channels.forEach(c => out.push({ id: uid(), group: g.title, name: c.name, url: c.url, logo: c.logo || "", file: c.file || "" })));
-  return out;
-}
-function load() {
-  try { const s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
-  return defaults();
-}
-function save() {
-  try { localStorage.setItem(KEY, JSON.stringify(channels)); }
-  catch (e) { alert("Không thể lưu dữ liệu. Hãy thử logo nhỏ hơn."); }
-}
-let channels = load();
-let isAdmin = false;
-try { isAdmin = sessionStorage.getItem(SESS) === "1"; } catch (e) {}
-
-async function sha(s) {
-  if (window.crypto && crypto.subtle) {
-    const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
-    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
-  }
-  let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0;
-  return "d" + h;
-}
-async function getAuth() {
-  try { const a = JSON.parse(localStorage.getItem(AUTH)); if (a && a.user && a.hash) return a; } catch (e) {}
-  const a = { user: "admin", hash: await sha("admin123") };
-  try { localStorage.setItem(AUTH, JSON.stringify(a)); } catch (e) {}
-  return a;
-}
+const channels = [];
+groups.forEach(g => g.channels.forEach(c => channels.push({ ...c, group: g.title })));
 
 function logoEl(src) {
   const list = Array.isArray(src) ? src.slice() : (src ? [src] : []);
@@ -324,8 +201,8 @@ function render(term = "") {
   const list = $("list");
   list.innerHTML = "";
   let total = 0;
-  [...new Set(channels.map(c => c.group || "Khác"))].forEach(gn => {
-    const items = channels.filter(c => (c.group || "Khác") === gn && (!t || c.name.toLowerCase().includes(t)));
+  [...new Set(channels.map(c => c.group))].forEach(gn => {
+    const items = channels.filter(c => c.group === gn && (!t || c.name.toLowerCase().includes(t)));
     if (!items.length) return;
     total += items.length;
     const sec = document.createElement("section");
@@ -349,23 +226,7 @@ function render(term = "") {
       p.className = "play";
       p.innerHTML = PLAY;
       a.append(logoEl(logoSources(c)), n, p);
-      const act = document.createElement("div");
-      act.className = "actions";
-      const eb = document.createElement("button");
-      eb.className = "icon-btn"; eb.type = "button"; eb.textContent = "✎";
-      eb.setAttribute("aria-label", "Sửa " + c.name);
-      eb.onclick = () => openEdit(c.id);
-      const db = document.createElement("button");
-      db.className = "icon-btn del"; db.type = "button"; db.textContent = "✕";
-      db.setAttribute("aria-label", "Xóa " + c.name);
-      db.onclick = () => {
-        if (confirm('Xóa kênh "' + c.name + '"?')) {
-          channels = channels.filter(x => x.id !== c.id);
-          save(); render($("q").value);
-        }
-      };
-      act.append(eb, db);
-      card.append(a, act);
+      card.appendChild(a);
       grid.appendChild(card);
     });
     sec.append(h, grid);
@@ -374,97 +235,8 @@ function render(term = "") {
   $("empty").style.display = total ? "none" : "block";
 }
 
-function applyAdmin() {
-  document.body.classList.toggle("is-admin", isAdmin);
-  $("adminBtn").hidden = isAdmin;
-  render($("q").value);
-}
-
-/* ---- dialogs ---- */
-document.querySelectorAll("[data-close]").forEach(b => b.onclick = () => $(b.dataset.close).close());
-
-$("adminBtn").onclick = () => { $("loginForm").reset(); $("loginErr").textContent = ""; $("loginDlg").showModal(); $("lu").focus(); };
-$("loginForm").onsubmit = async e => {
-  e.preventDefault();
-  const a = await getAuth();
-  const ok = $("lu").value.trim() === a.user && (await sha($("lp").value)) === a.hash;
-  if (!ok) { $("loginErr").textContent = "Sai tên đăng nhập hoặc mật khẩu."; return; }
-  isAdmin = true;
-  try { sessionStorage.setItem(SESS, "1"); } catch (e) {}
-  $("loginDlg").close();
-  applyAdmin();
-};
-$("outBtn").onclick = () => {
-  isAdmin = false;
-  try { sessionStorage.removeItem(SESS); } catch (e) {}
-  applyAdmin();
-};
-$("resetBtn").onclick = () => {
-  if (confirm("Khôi phục danh sách kênh ban đầu? Mọi thay đổi sẽ bị mất.")) { channels = defaults(); save(); render($("q").value); }
-};
-$("pwBtn").onclick = () => { $("pwForm").reset(); $("pwDlg").showModal(); };
-$("pwForm").onsubmit = async e => {
-  e.preventDefault();
-  const a = { user: $("nu").value.trim(), hash: await sha($("np").value) };
-  try { localStorage.setItem(AUTH, JSON.stringify(a)); } catch (er) {}
-  $("pwDlg").close();
-  alert("Đã cập nhật tài khoản quản trị.");
-};
-
-/* ---- add / edit ---- */
-let editId = null, pendingLogo = "";
-function setPrev() { const p = $("prevLogo"); p.replaceWith(Object.assign(logoEl(logoSources({ name: $("cn").value, logo: pendingLogo, file: (channels.find(x => x.id === editId) || {}).file })), { id: "prevLogo" })); }
-function openEdit(id) {
-  const c = channels.find(x => x.id === id) || { name: "", url: "", group: "", logo: "" };
-  editId = id;
-  $("chTitle").textContent = id ? "Sửa kênh" : "Thêm kênh";
-  $("cn").value = c.name; $("cu").value = c.url; $("cg").value = c.group;
-  pendingLogo = c.logo || "";
-  $("cl").value = pendingLogo.startsWith("data:") ? "" : pendingLogo;
-  $("cf").value = ""; $("chErr").textContent = "";
-  $("groupList").innerHTML = [...new Set(channels.map(x => x.group))].map(g => '<option value="' + g.replace(/"/g, "&quot;") + '">').join("");
-  setPrev();
-  $("chDlg").showModal();
-}
-$("addBtn").onclick = () => openEdit(null);
-$("cl").oninput = () => { pendingLogo = $("cl").value.trim(); setPrev(); };
-$("clearLogo").onclick = () => { pendingLogo = ""; $("cl").value = ""; $("cf").value = ""; setPrev(); };
-$("cf").onchange = () => {
-  const f = $("cf").files[0];
-  if (!f) return;
-  const r = new FileReader();
-  r.onload = () => {
-    const img = new Image();
-    img.onload = () => {
-      const k = Math.min(1, 160 / img.width, 120 / img.height);
-      const cv = document.createElement("canvas");
-      cv.width = Math.max(1, Math.round(img.width * k));
-      cv.height = Math.max(1, Math.round(img.height * k));
-      cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
-      pendingLogo = cv.toDataURL("image/png");
-      $("cl").value = "";
-      setPrev();
-    };
-    img.onerror = () => { $("chErr").textContent = "Không đọc được ảnh này."; };
-    img.src = r.result;
-  };
-  r.readAsDataURL(f);
-};
-$("chForm").onsubmit = e => {
-  e.preventDefault();
-  const url = $("cu").value.trim();
-  if (!/^https?:\/\//i.test(url)) { $("chErr").textContent = "Liên kết phải bắt đầu bằng http:// hoặc https://"; return; }
-  const data = { name: $("cn").value.trim(), url, group: $("cg").value.trim() || "Khác", logo: pendingLogo };
-  if (editId) Object.assign(channels.find(x => x.id === editId), data);
-  else channels.push({ id: uid(), ...data });
-  save();
-  $("chDlg").close();
-  render($("q").value);
-};
-
 $("q").addEventListener("input", e => render(e.target.value));
-getAuth();
-applyAdmin();
+render();
 </script>
 </body>
 </html>
