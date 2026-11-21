@@ -226,29 +226,42 @@ dialog input[type=file] { padding: 8px; font-size: .85rem; }
 <script>
 const groups = [
   { title: "Kênh quốc gia", channels: [
-    { badge: "360+", name: "TV360+ 9", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" },
-    { badge: "VN", name: "Vietnam Today", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
+    { badge: "360+", name: "TV360+ 9", file: "tv360.jpg", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" },
+    { badge: "VN", name: "Vietnam Today", file: "vntd.jpg", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/chawqhwjhjtb4el25cobbqlidyi4c2a6/bpk-tv/448/output/448-audio_198800_eng=196800-video=5256400.m3u8" }
   ]},
   { title: "VTV", channels: [
-    { badge: "VTV1", name: "VTV1", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
-    { badge: "VTV2", name: "VTV2", url: "https://vtvgolive-vtv02.vtvdigital.vn/QCFuDzHtJhpZNUhfXVg6Ag/1795284405/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8" },
-    { badge: "VTV3", name: "VTV3", url: "https://live-vtv-aws.vtvdigital.vn/FDbVNvQVnXVZ917Cpv0pnA/1795284000/aws/vtv3_free/live/vtv3_720p/chunks.m3u8" },
-    { badge: "VTV4", name: "VTV4", url: "https://vtvgolive-vtv02.vtvdigital.vn/YEKbO1sMWn8Ae01IjlUy_A/1795284546/hls/vtv/live/vtv4__vtv720p-h264/index.m3u8" },
-    { badge: "VTV5", name: "VTV5", url: "https://vtvgolive-vtv02.vtvdigital.vn/WEYbsTiEBCeaixLf2qZYaQ/1795284587/hls/vtv/live/vtv5__vtv720p-h264/index.m3u8" },
-    { badge: "VTV5", name: "VTV5 Tây Nam Bộ", url: "https://vtvgolive-vtv02.vtvdigital.vn/HC8_KMGPyAk9wmk_TDdmnw/1795284615/hls/vtv/live/vtv5tnb__vtv720p-h264/index.m3u8" },
-    { badge: "VTV5", name: "VTV5 Tây Nguyên", url: "https://vtvgolive-vtv02.vtvdigital.vn/O5hrQIIOPTemxBfS_TpG9g/1795284661/hls/vtv/live/vtv5tn__vtv720p-h264/index.m3u8" },
-    { badge: "VTV6", name: "VTV6", url: "https://live-vtv-aws.vtvdigital.vn/R2KQJqgxUU8QyAsCZnr0tg/1795284000/aws/vtv6_free/live/vtv6_720p/chunks.m3u8" },
-    { badge: "VTV7", name: "VTV7", url: "https://vtvgolive-vtv02.vtvdigital.vn/yjvZzIe0P3rcS7cf1nL6zg/1795284711/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8" },
-    { badge: "VTV8", name: "VTV8", url: "https://vtvgolive-vtv02.vtvdigital.vn/yXVGYXFV-gux90rV8Z9F6Q/1795284726/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8" },
-    { badge: "VTV9", name: "VTV9", url: "https://vtvgolive-vtv02.vtvdigital.vn/WNfHg4BJH_67CmnhP8bqAg/1795284744/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8" },
-    { badge: "VTV10", name: "VTV10", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" }
+    { badge: "VTV1", name: "VTV1", file: "vtv1.webp", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
+    { badge: "VTV2", name: "VTV2", file: "vtv2.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/QCFuDzHtJhpZNUhfXVg6Ag/1795284405/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8" },
+    { badge: "VTV3", name: "VTV3", file: "vtv3.webp", url: "https://live-vtv-aws.vtvdigital.vn/FDbVNvQVnXVZ917Cpv0pnA/1795284000/aws/vtv3_free/live/vtv3_720p/chunks.m3u8" },
+    { badge: "VTV4", name: "VTV4", file: "vtv4.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/YEKbO1sMWn8Ae01IjlUy_A/1795284546/hls/vtv/live/vtv4__vtv720p-h264/index.m3u8" },
+    { badge: "VTV5", name: "VTV5", file: "vtv5.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/WEYbsTiEBCeaixLf2qZYaQ/1795284587/hls/vtv/live/vtv5__vtv720p-h264/index.m3u8" },
+    { badge: "VTV5", name: "VTV5 Tây Nam Bộ", file: "vtv5tnb.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/HC8_KMGPyAk9wmk_TDdmnw/1795284615/hls/vtv/live/vtv5tnb__vtv720p-h264/index.m3u8" },
+    { badge: "VTV5", name: "VTV5 Tây Nguyên", file: "vtv5tn.jpg", url: "https://vtvgolive-vtv02.vtvdigital.vn/O5hrQIIOPTemxBfS_TpG9g/1795284661/hls/vtv/live/vtv5tn__vtv720p-h264/index.m3u8" },
+    { badge: "VTV6", name: "VTV6", file: "vtv6.webp", url: "https://live-vtv-aws.vtvdigital.vn/R2KQJqgxUU8QyAsCZnr0tg/1795284000/aws/vtv6_free/live/vtv6_720p/chunks.m3u8" },
+    { badge: "VTV7", name: "VTV7", file: "vtv7.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/yjvZzIe0P3rcS7cf1nL6zg/1795284711/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8" },
+    { badge: "VTV8", name: "VTV8", file: "vtv8.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/yXVGYXFV-gux90rV8Z9F6Q/1795284726/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8" },
+    { badge: "VTV9", name: "VTV9", file: "vtv9.png", url: "https://vtvgolive-vtv02.vtvdigital.vn/WNfHg4BJH_67CmnhP8bqAg/1795284744/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8" },
+    { badge: "VTV10", name: "VTV10", file: "vtv10.webp", url: "https://vtvgolive-vtv02.vtvdigital.vn/-iVLDb4xvPK-mfvfn5BeRQ/1795284757/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8" }
   ]},
   { title: "Đồng Tháp", channels: [
-    { badge: "ĐT1", name: "Truyền hình Đồng Tháp 1", url: "https://618b88f69e53b.streamlock.net/THDT/thdttv/chunklist_w426586215.m3u8" },
-    { badge: "ĐT2", name: "Truyền hình Đồng Tháp 2", url: "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist_w824219143.m3u8" },
-    { badge: "FM", name: "Phát thanh Đồng Tháp", url: "https://618b88f69e53b.streamlock.net/THDTR/thdtradio/chunklist_w139852826.m3u8" }
+    { badge: "ĐT1", name: "Truyền hình Đồng Tháp 1", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT/thdttv/chunklist_w426586215.m3u8" },
+    { badge: "ĐT2", name: "Truyền hình Đồng Tháp 2", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist_w824219143.m3u8" },
+    { badge: "FM", name: "Phát thanh Đồng Tháp", file: "thdt.png", url: "https://618b88f69e53b.streamlock.net/THDTR/thdtradio/chunklist_w139852826.m3u8" }
   ]}
 ];
+
+/* ===== Logo settings ===== */
+const LOGO_DIR = "logos/";                          // folder that holds the logo files
+const LOGO_EXTS = ["png", "jpg", "jpeg", "webp", "svg"]; // extensions to try, in order
+const slug = t => t.toLowerCase().replace(/đ/g, "d").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+// Priority: 1) logo = full link/path  2) file = file name in LOGO_DIR (e.g. "vtv1.webp")  3) channel name as a slug
+function logoSources(c) {
+  if (c.logo) return [c.logo];
+  if (c.file && /\.[a-z0-9]+$/i.test(c.file)) return [LOGO_DIR + c.file];   // file with extension: use exactly
+  const base = c.file || slug(c.name);                                    // no extension: try each one
+  return base ? LOGO_EXTS.map(e => LOGO_DIR + base + "." + e) : [];
+}
+/* ========================= */
 
 const $ = id => document.getElementById(id);
 const KEY = "tvch_channels", AUTH = "tvch_auth", SESS = "tvch_admin";
@@ -258,7 +271,7 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 
 function defaults() {
   const out = [];
-  groups.forEach(g => g.channels.forEach(c => out.push({ id: uid(), group: g.title, name: c.name, url: c.url, logo: c.logo || "" })));
+  groups.forEach(g => g.channels.forEach(c => out.push({ id: uid(), group: g.title, name: c.name, url: c.url, logo: c.logo || "", file: c.file || "" })));
   return out;
 }
 function load() {
@@ -289,11 +302,16 @@ async function getAuth() {
 }
 
 function logoEl(src) {
+  const list = Array.isArray(src) ? src.slice() : (src ? [src] : []);
   const s = document.createElement("span");
   s.className = "logo";
   const icon = () => { s.innerHTML = TV; };
-  if (src) { const i = document.createElement("img"); i.alt = ""; i.src = src; i.onerror = icon; s.appendChild(i); }
-  else icon();
+  if (!list.length) { icon(); return s; }
+  const i = document.createElement("img");
+  i.alt = "";
+  i.onerror = () => { list.shift(); if (list.length) i.src = list[0]; else icon(); };
+  i.src = list[0];
+  s.appendChild(i);
   return s;
 }
 
@@ -326,7 +344,7 @@ function render(term = "") {
       const p = document.createElement("span");
       p.className = "play";
       p.innerHTML = PLAY;
-      a.append(logoEl(c.logo), n, p);
+      a.append(logoEl(logoSources(c)), n, p);
       const act = document.createElement("div");
       act.className = "actions";
       const eb = document.createElement("button");
@@ -391,7 +409,7 @@ $("pwForm").onsubmit = async e => {
 
 /* ---- add / edit ---- */
 let editId = null, pendingLogo = "";
-function setPrev() { const p = $("prevLogo"); p.replaceWith(Object.assign(logoEl(pendingLogo), { id: "prevLogo" })); }
+function setPrev() { const p = $("prevLogo"); p.replaceWith(Object.assign(logoEl(logoSources({ name: $("cn").value, logo: pendingLogo, file: (channels.find(x => x.id === editId) || {}).file })), { id: "prevLogo" })); }
 function openEdit(id) {
   const c = channels.find(x => x.id === id) || { name: "", url: "", group: "", logo: "" };
   editId = id;
