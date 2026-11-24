@@ -3,111 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Truyền hình Online</title>
+<title>Kênh truyền hình</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f3efe8;
-  --surface: #fffdf9;
-  --ink: #1c2230;
-  --muted: #6b7280;
-  --line: #e2dccf;
-  --accent: #e03a3e;
-  --badge: #1c2230;
-  --badge-ink: #fffdf9;
-  --shadow: 0 1px 0 rgba(28,34,48,.06);
+  --bg: #f3efe8; --surface: #fffdf9; --ink: #1c2230; --muted: #6b7280;
+  --line: #e2dccf; --accent: #e03a3e; --shadow: 0 1px 0 rgba(28,34,48,.06);
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12151c;
-    --surface: #1b202b;
-    --ink: #f1ede4;
-    --muted: #9aa1ae;
-    --line: #2b3240;
-    --accent: #ff5a5f;
-    --badge: #f1ede4;
-    --badge-ink: #12151c;
-    --shadow: none;
+    --bg: #12151c; --surface: #1b202b; --ink: #f1ede4; --muted: #9aa1ae;
+    --line: #2b3240; --accent: #ff5a5f; --shadow: none;
   }
 }
 * { box-sizing: border-box; }
 html { color-scheme: light dark; }
 body {
-  margin: 0;
-  padding: 40px 20px 60px;
+  margin: 0; padding: 40px 20px 60px;
   font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  line-height: 1.5;
+  background: var(--bg); color: var(--ink); line-height: 1.5;
 }
 .wrap { max-width: 760px; margin: 0 auto; }
-
 header { margin-bottom: 28px; }
 h1 {
-  margin: 0 0 6px;
-  font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  margin: 0 0 6px; font-size: clamp(2rem, 6vw, 3rem); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1.05; display: flex; align-items: center; gap: 14px;
 }
-.live-dot {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 1.8s ease-out infinite;
-  flex: none;
-}
+.live-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); animation: pulse 1.8s ease-out infinite; flex: none; }
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); }
   100% { box-shadow: 0 0 0 14px transparent; }
 }
-.sub { margin: 0; color: var(--muted); font-size: 0.95rem; }
-
-.search {
-  position: sticky; top: 12px; z-index: 5;
-  margin: 0 0 32px;
-}
+.sub { margin: 0; color: var(--muted); font-size: .95rem; }
+.search { position: sticky; top: 12px; z-index: 20; margin: 0 0 32px; }
 .search input {
-  width: 100%;
-  padding: 14px 18px;
-  font: inherit;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
-  outline: none;
+  width: 100%; padding: 14px 18px; font: inherit; color: var(--ink); background: var(--surface);
+  border: 1.5px solid var(--line); border-radius: 999px; outline: none;
 }
 .search input:focus { border-color: var(--ink); }
-
 section { margin-bottom: 34px; }
 h2 {
-  display: flex; align-items: baseline; gap: 10px;
-  margin: 0 0 12px;
-  font-size: 1.1rem; font-weight: 700;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--ink);
+  display: flex; align-items: baseline; gap: 10px; margin: 0 0 12px; font-size: 1.1rem; font-weight: 700;
+  padding-bottom: 8px; border-bottom: 2px solid var(--ink);
 }
-h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+h2 small { font-weight: 400; color: var(--muted); font-size: .85rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 10px;
-}
-.channel { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); transition: border-color .15s; }
+.channel { position: relative; display: flex; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); transition: border-color .15s; }
 .channel:hover { border-color: var(--ink); }
+.channel.off { opacity: .5; }
 .open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 12px 10px 12px 12px; color: var(--ink); text-decoration: none; border-radius: 12px; }
 .open:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .logo { flex: none; width: 56px; height: 40px; display: grid; place-items: center; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .logo img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 3px; }
 .logo svg { width: 22px; height: 22px; fill: none; stroke: #9aa1ae; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .name { flex: 1; font-weight: 500; font-size: .98rem; min-width: 0; }
+.cnt { color: var(--muted); font-weight: 400; font-size: .8rem; }
 .play { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
 .channel:hover .play { background: var(--accent); color: #fff; }
 .play svg { width: 12px; height: 12px; margin-left: 2px; fill: currentColor; }
+
+.links { display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 10; margin-top: -1px; padding: 10px; gap: 6px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--ink); border-radius: 0 0 12px 12px; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+.channel.multi:hover, .channel.multi:focus-within, .channel.multi.show { border-radius: 12px 12px 0 0; }
+.channel.multi:hover .links, .channel.multi:focus-within .links, .channel.multi.show .links { display: flex; }
+.links a { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); text-decoration: none; font-size: .85rem; font-weight: 500; }
+.links a:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.links a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
 .player { border: 0; padding: 0; width: min(960px, 96vw); background: #000; border-radius: 14px; overflow: hidden; }
 .player::backdrop { background: rgba(0,0,0,.7); }
 .player-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--surface); color: var(--ink); font-size: .9rem; }
@@ -118,24 +81,18 @@ h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
 .player-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
 .player-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .empty { display: none; text-align: center; color: var(--muted); padding: 30px 0; }
-
-@media (prefers-reduced-motion: reduce) {
-  .live-dot { animation: none; }
-  .channel { transition: none; }
-}
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } .channel { transition: none; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1><span class="live-dot"></span>Truyền hình Online</h1>
+    <h1><span class="live-dot"></span>Kênh truyền hình</h1>
     <p class="sub">Chọn một kênh để xem trực tiếp.</p>
   </header>
-
   <div class="search">
     <input id="q" type="search" placeholder="Tìm kênh…" aria-label="Tìm kênh" autocomplete="off">
   </div>
-
   <main id="list"></main>
   <p class="empty" id="empty">Không tìm thấy kênh nào. Thử từ khóa khác.</p>
 </div>
@@ -149,9 +106,12 @@ h2 small { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
 </dialog>
 
 <script>
+/* ===== Channels =====
+   url:   one link          urls: ["...", "..."]  several links (hover shows Link 1, Link 2...)
+   embed + watch: embed-only channel   file: logo file name   logo: full logo link   */
 const groups = [
   { title: "Kênh TV360", channels: [
-    { badge: "360+", name: "TV360+ 9", file: "tv360.jpg", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" }
+    { name: "TV360+ 9", file: "tv360.jpg", url: "https://pop18-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1MjAyMzAwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8zNzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjY1YmRhY2M4MmI4OGJjZjUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.pEGIT3ebFMmu8ut0boSmpkSPVbRGnZLeFr9gVhBQPCAto3INlpK7XqVTKsaodrjOuyDFiOnQVAts_C-Rj-DiNQ==/live/eds/379/HLS_Clean_MHL_2s/379-avc1_6299968=10004-mp4a_206000_eng=20000.m3u8" }
   ]},
   { title: "Kênh quốc gia", channels: [
     { name: "VTV1", file: "vtv1.webp", url: "https://live-vtv-aws.vtvdigital.vn/mOFZUZB1vENVB7idoJR1tg/1795284000/aws/vtv1_free/live/vtv1_720p/chunks.m3u8" },
@@ -190,54 +150,171 @@ const groups = [
     { name: "HTVC Women", url: "https://htvc.com.vn/xem-kenh-htvc-phu-nu-full-hd-1080-2393.html" },
     { name: "HTVC Family", url: "https://htvc.com.vn/xem-kenh-htvc-gia-dinh-full-hd-1080-2394.html" }
   ]},
+  /* These channels get their links from LINK_TEXT below */
   { title: "Kênh Vĩnh Long", channels: [
-    { name: "THVL1", url: "https://live.thvli.vn/thvl1/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImRkYmE5NGM5LThhNWMtNDZmNC1iZWRlLTA0ZGYwM2VjNzI0YSIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTU4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJjaXAiOiIxNC4xOTEuMjA3LjE0MSIsInBsYSI6IndlYiIsImlhdCI6MTc5NTQzODQ2OX0.KH4_lRc11YMnIEMRf-iz7XO9Ht1bRbxSCEE8y7WlSIY"},
-    { name: "THVL2", url: "https://live.thvli.vn/thvl2/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjA0MDY1ZmQ4LWU1ZjgtNGQ5MS1hMjQ5LTE4NDFiMmY4YmQ0ZSIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTU4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJjaXAiOiIxNC4xOTEuMjA3LjE0MSIsInBsYSI6IndlYiIsImlhdCI6MTc5NTQzODUwNn0.GY6CTDkI3KQYec2uVG72Uvm_AqWzSHsOB2xMkxzhycQ"},
-    { name: "THVL3", url: "https://live.thvli.vn/thvl3/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjNhMmYzYzA1LTZkZWMtNGVjZC1hZGYyLThkNDAzNjVkYTZlMSIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTU4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJjaXAiOiIxNC4xOTEuMjA3LjE0MSIsInBsYSI6IndlYiIsImlhdCI6MTc5NTQzODUyNn0.H1KFXrt2NlBV7rBSfV0lDeGYJWEvyRwo_w4fhaZ-Zx8"},
-    { name: "THVL4", url: "https://live.thvli.vn/thvl4/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImVlMTdmZjg5LWE1YzctNDExYy05MTE0LTU0MmRiNzUyZDJjYiIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTU4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJjaXAiOiIxNC4xOTEuMjA3LjE0MSIsInBsYSI6IndlYiIsImlhdCI6MTc5NTQzODU0MX0.r3Rzvv5phpuZ1FpnHzu8YXArmKuVN07NANIyVmH2aFk"},
-    { name: "THVL5", url: "https://live.thvli.vn/thvl5/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImVkMzc0NjQxLTllZmUtNGM2Yi04Mzk2LTAyYzAwNDJjNTRhMiIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTU4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJjaXAiOiIxNC4xOTEuMjA3LjE0MSIsInBsYSI6IndlYiIsImlhdCI6MTc5NTQzODU1Nn0.d9uroGMcw_WWjrmQHD4exFH2mi2mdRh1Nc-9yOo0t7s"}
+    { name: "THVL1" }, { name: "THVL2" }, { name: "THVL3" }, { name: "THVL4" }, { name: "THVL5" }
   ]},
   { title: "Kênh nước ngoài", channels: [
-    { name: "CNBC", url: "https://pop17-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1Mjg4MTc5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80Njk0NjkvSExTX0NsZWFuX01ITF82cy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjA4MmM3YjM4Mjc0YWVjZDYiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.jMXbKzaB5Wn-rMnVhHtEcJW9CjPvWX1IT1mDcwj3ou1_XNsX0az5hPMjCdW6aIrX7O2PDRuT8fLpy0oqbBwCxw==/live/eds/469469/HLS_Clean_MHL_6s/469469-avc1_5099968=10003-mp4a_196800_eng=20000.m3u8" },
-    { name: "Arirang", url: "https://ec03-pop3-hht.tv360.vn/bpk-token/jzxk2yprcgugchrw2hsu23vnmfhg5llb/bpk-tv/466/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NjAxMzAsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODQxMSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDY2X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDNfMTcyLjI0LjE3LjcwOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODQxMSwKICAgICAidXJsIjoiL2Jway10di80NjYvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJqenhrMnlwcmNndWdjaHJ3MmhzdTIzdm5tZmhnNWxsYiIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0NjZfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.kVf6GDBCu5mvfaac48nYlZ8cyVBZT4lSry5Gcvkv3Kw" },
-    { name: "Outdoor HD", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/yerho5lzlvzhkdkfbty4aitxoxase53v/bpk-tv/146/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NTk4MjgsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODEwOSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTQ2X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDRfMTcyLjI0LjE3LjcxOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODEwOSwKICAgICAidXJsIjoiL2Jway10di8xNDYvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ5ZXJobzVsemx2emhrZGtmYnR5NGFpdHhveGFzZTUzdiIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxNDZfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.CEPP3wY0y2H9Dr0EyP11oS0NwdveLZvGvZ-R2z_E734" },
-    { name: "Channel News Asia", url: "https://pop16-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NDYzMzc2Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80MzMvSExTX0NsZWFuX01ITF82cy8iLCJzZXNzaW9uX2Nkbl9pZCI6ImQ3ODMxZjY5NjljOWVjMmIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiIxMzIiLCJzb3VyY2VzIjpbMzQ2LDQ5MCw0OTMsNDk1XX0=.SJ_myv4ndRg076Bl5tlBHerlshEUlNfJtG-trkuCHrQ4Zg5hrBVyi48xAeuneZOW0g7W3shWlVJ0WStiOhCpvA==/live/eds/433/HLS_Clean_MHL_6s/index.m3u8?screen=MHL&uid=266349268" },
-    { name: "AFN HD", url: "https://ec03-pop3-hht.tv360.vn/bpk-token/soymakzoz7csxs3wxoxzfmgafoj3bqbl/bpk-tv/178/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NTk5MjcsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODIwOSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTc4X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDNfMTcyLjI0LjE3LjcwOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODIwOSwKICAgICAidXJsIjoiL2Jway10di8xNzgvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJzb3ltYWt6b3o3Y3N4czN3eG94emZtZ2Fmb2ozYnFibCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxNzhfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.UvtxFvK6YvourGlQpLtIRHoLqjN-15zIpxBSzKksFHc" },
-    { name: "KBS World", url: "https://ec04-pop3-hht.tv360.vn/bpk-token/6kweaojv2nctt6kdho67hlcahhzkyqbz/bpk-tv/422/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NTk5NzMsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODI1NCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDIyX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDRfMTcyLjI0LjE3LjcxOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODI1NCwKICAgICAidXJsIjoiL2Jway10di80MjIvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiI2a3dlYW9qdjJuY3R0NmtkaG82N2hsY2FoaHpreXFieiIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0MjJfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9._WQdC8kXj1uvLX648gWa7bZ5YMo8lWIzcV8LiEkIs3w" },
-    { name: "DW", url: "https://pop17-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NDYzMjIzIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80MzIvSExTX0NsZWFuX01ITF82cy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjE0ZjllNjA4MTFkMjQ0MDMiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2NyIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.LIWERxJIvdZllM0ku6654JExoEbBXRusqx1uO3Upv9wGkPfubqxwEqMak19wMHsjtPJbSgkeLmXj-QLfoS4ztQ==/live/eds/432/HLS_Clean_MHL_6s/index.m3u8?screen=MHL&uid=266349268" },
-    { name: "NHK World", url: "https://ec02-pop3-hht.tv360.vn/bpk-token/uhfdgitgwu3cfkrfjctkhsrtekq4umzc/bpk-tv/467/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NTk5OTksCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODI4MSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDY3X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDJfMTcyLjI0LjE3LjY5OjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODI4MSwKICAgICAidXJsIjoiL2Jway10di80Njcvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ1aGZkZ2l0Z3d1M2Nma3JmamN0a2hzcnRla3E0dW16YyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0NjdfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.fXi33Efk7DOIHi1QEONHM7dcmrHK_R8ojBFjf_fzx6E" },
-    { name: "France 24", url: "https://ec01-pop3-hht.tv360.vn/bpk-token/ja4kihupi6qr4q6x36newofedzedrja6/bpk-tv/470/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NjAwMjMsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODMwNCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDcwX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDFfMTcyLjI0LjE3LjY4OjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODMwNCwKICAgICAidXJsIjoiL2Jway10di80NzAvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJqYTRraWh1cGk2cXI0cTZ4MzZuZXdvZmVkemVkcmphNiIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0NzBfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.L_8hwA9VBKodkcKRGuxoHXZJMttuAkxQpa9X1nEVui0" },
-    { name: "TV5", url: "https://pop19-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NDYzNTM0Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjgvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjZiN2EzMzI4NWY2MGYxYTUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MyIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.OMKHkAXHyQt4JWJoZP938cgp62zjVjh7yiLAIQt9Zuz2viAkfRrLZEbpHj_x3UIWPcyiJ-N5WcO8YxjUPONtgg==/live/eds/468/HLS_Clean_MHL_2s/index.m3u8?screen=MHL&uid=266349268" },
-    { name: "History HD", url: "https://ec02-pop3-hht.tv360.vn/bpk-token/hp3vyl4erbms625pecvtv524f457oxbp/bpk-tv/191/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NjAwODgsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODM2OSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTkxX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDJfMTcyLjI0LjE3LjY5OjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODM2OSwKICAgICAidXJsIjoiL2Jway10di8xOTEvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJocDN2eWw0ZXJibXM2MjVwZWN2dHY1MjRmNDU3b3hicCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxOTFfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.l6hNWc0bvFbBqOOgyEcaGh-YGIcq5iDTBTJGa2x_iA8" },
-    { name: "KIX", url: "https://ec05-pop3-hht.tv360.vn/bpk-token/canmqtvpmxgu4qccwtfbegwijyibvsco/bpk-tv/166/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU0NjAxMDcsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQzODM4OCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTY2X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDVfMTcyLjI0LjE3LjcyOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQzODM4OCwKICAgICAidXJsIjoiL2Jway10di8xNjYvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJjYW5tcXR2cG14Z3U0cWNjd3RmYmVnd2lqeWlidnNjbyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxNjZfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgIAogICAgICAgICJzdSI6MCwKICAgICAgICAicmMiOjE1MAogICAgIH0sCiAgICAgImxheSI6IHsKICAgICAgImxzdCI6W10sCiAgICAgICJtYXgiOjEyMDAwMDAwLAogICAgICAibWluIjowCiAgICAgfSwKICAgICAicnNoIjowLAogICAgICJyc2hwIjoxMDAsCiAgICAgIm9iZiI6ZmFsc2UsCiAgICAgInRhZ3MiOnt9CiAgfQp9.XVv8ih8ZUA_C4bVLyoqoNt7mJAMzq_8FTv9RC9l5eck" },
-    { name: "Da Vinci HD", url: "https://pop19-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NDYzNjMxIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xNzMvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjlkYTJjNTM1OWMwZjI4OWMiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MyIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.5rGotDp6DasCnUs1SV6s2Uikj-ur1jknOfIxWrpdrZcYgKvGdrFHtYgTGCG-PVY8yDIVnOYTJFHHyq0sQkdkuA==/live/eds/173/HLS_Clean_MHL_2s/173.m3u8?screen=MHL&uid=266349268" }
+    { name: "CNBC", url: "https://pop17-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1Mjg4MTc5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80Njk0NjkvSExTX0NsZWFuX01ITF82cy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjA4MmM3YjM4Mjc0YWVjZDYiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI2OCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.jMXbKzaB5Wn-rMnVhHtEcJW9CjPvWX1IT1mDcwj3ou1_XNsX0az5hPMjCdW6aIrX7O2PDRuT8fLpy0oqbBwCxw==/live/eds/469469/HLS_Clean_MHL_6s/469469-avc1_5099968=10003-mp4a_196800_eng=20000.m3u8" }, 
+    { name: "Arirang" }, { name: "Outdoor HD" }, { name: "Channel News Asia" }, { name: "AFN HD" },
+    { name: "KBS World" }, { name: "DW" }, { name: "NHK World" }, { name: "France 24" }, { name: "TV5" },
+    { name: "History HD" }, { name: "KIX" }, { name: "Da Vinci HD" }
   ]}
 ];
 
+/* ===== Backup links =====
+   Paste your whole link list between the backticks, exactly as you have it.
+   Or write a channel name on its own line, then its links under it, one per line. */
+const LINK_TEXT = `
+https://www.thvli.vn/live/thvl1-hd
+  [network] https://live.thvli.vn/thvl1/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImZhYzBhMzk1LThjMTYtNGZjZC1iMjIxLTZiNzAwNjhmYzI1NSIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDZ9.Q4mCltnTgNZbIioOoVL0YuATLwAXWwdyRxUa6MwvDMU
+  [network] https://live.thvli.vn/thvl1/thvli-drm/thvl1-480p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImZhYzBhMzk1LThjMTYtNGZjZC1iMjIxLTZiNzAwNjhmYzI1NSIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDZ9.Q4mCltnTgNZbIioOoVL0YuATLwAXWwdyRxUa6MwvDMU
+  [network] https://live.thvli.vn/thvl1/thvli-drm/thvl1-1080p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImZhYzBhMzk1LThjMTYtNGZjZC1iMjIxLTZiNzAwNjhmYzI1NSIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDZ9.Q4mCltnTgNZbIioOoVL0YuATLwAXWwdyRxUa6MwvDMU
 
+https://www.thvli.vn/live/thvl2-hd
+  [network] https://live.thvli.vn/thvl2/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImUzNjYxZjlhLTI1YjMtNDlhZS04ODgxLWVhOTRkODA4OTcyZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDJ9.nTK6_SFx5tnQHaPi7IIUvktA_HJ-m6WXEsOrmv5VhfA
+  [network] https://live.thvli.vn/thvl2/thvli-drm/thvl2-480p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImUzNjYxZjlhLTI1YjMtNDlhZS04ODgxLWVhOTRkODA4OTcyZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDJ9.nTK6_SFx5tnQHaPi7IIUvktA_HJ-m6WXEsOrmv5VhfA
+  [network] https://live.thvli.vn/thvl2/thvli-drm/thvl2-1080p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImUzNjYxZjlhLTI1YjMtNDlhZS04ODgxLWVhOTRkODA4OTcyZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDJ9.nTK6_SFx5tnQHaPi7IIUvktA_HJ-m6WXEsOrmv5VhfA
+  [network] https://live.thvli.vn/thvl2/thvli-drm/thvl2-720p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImUzNjYxZjlhLTI1YjMtNDlhZS04ODgxLWVhOTRkODA4OTcyZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDJ9.nTK6_SFx5tnQHaPi7IIUvktA_HJ-m6WXEsOrmv5VhfA
+
+https://www.thvli.vn/live/thvl3-hd
+  [network] https://live.thvli.vn/thvl3/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjllMTUyZDY5LWJjNjEtNDA4YS05NzgwLTUxOGM5NTZjZGU5ZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDR9.nIJfGXK_dsYCQwyNwt-d5FDkWjXkJg2bSrEq4gPtzFY
+  [network] https://live.thvli.vn/thvl3/thvli-drm/thvl3-480p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjllMTUyZDY5LWJjNjEtNDA4YS05NzgwLTUxOGM5NTZjZGU5ZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDR9.nIJfGXK_dsYCQwyNwt-d5FDkWjXkJg2bSrEq4gPtzFY
+  [network] https://live.thvli.vn/thvl3/thvli-drm/thvl3-1080p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjllMTUyZDY5LWJjNjEtNDA4YS05NzgwLTUxOGM5NTZjZGU5ZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MDR9.nIJfGXK_dsYCQwyNwt-d5FDkWjXkJg2bSrEq4gPtzFY
+
+https://www.thvli.vn/live/thvl4-hd
+  [network] https://live.thvli.vn/thvl4/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImI0OTJkMjhlLWEwZTUtNGRjOS04ZmRmLWM3M2U5N2Q1NGM4ZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MTN9.EynDUUT5jc6vbVbQPkiMx5C_a9o3HS9Yb18gKgCzHOA
+  [network] https://live.thvli.vn/thvl4/thvli-drm/thvl4-480p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImI0OTJkMjhlLWEwZTUtNGRjOS04ZmRmLWM3M2U5N2Q1NGM4ZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MTN9.EynDUUT5jc6vbVbQPkiMx5C_a9o3HS9Yb18gKgCzHOA
+  [network] https://live.thvli.vn/thvl4/thvli-drm/thvl4-1080p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6ImI0OTJkMjhlLWEwZTUtNGRjOS04ZmRmLWM3M2U5N2Q1NGM4ZCIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MTN9.EynDUUT5jc6vbVbQPkiMx5C_a9o3HS9Yb18gKgCzHOA
+
+https://www.thvli.vn/live/thvl5-hd
+  [network] https://live.thvli.vn/thvl5/playlist.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjhiNDMzOTY1LWZmMTMtNGUwMS04YTc3LWZhMjUwOTZlZjk3YiIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MTV9.S6lwfKEgmtDerJsxkF2qYlwbeSqGloYdlJSBQhTl9p0
+  [network] https://live.thvli.vn/thvl5/thvli-drm/thvl5-480p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjhiNDMzOTY1LWZmMTMtNGUwMS04YTc3LWZhMjUwOTZlZjk3YiIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MTV9.S6lwfKEgmtDerJsxkF2qYlwbeSqGloYdlJSBQhTl9p0
+  [network] https://live.thvli.vn/thvl5/thvli-drm/thvl5-1080p/chunks.m3u8?app=141214&sig=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOjIsInVpZCI6IjhiNDMzOTY1LWZmMTMtNGUwMS04YTc3LWZhMjUwOTZlZjk3YiIsImFwcCI6MTQxMjE0LCJkZXYiOiJNb3ppbGxhLzUuMCAoWDExOyBMaW51eCB4ODZfNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjQuMCBTYWZhcmkvNTM3LjM2IiwiY2lwIjoiMTQuMTkxLjIwNy4xNDEiLCJwbGEiOiJ3ZWIiLCJpYXQiOjE3OTU0ODY4MTV9.S6lwfKEgmtDerJsxkF2qYlwbeSqGloYdlJSBQhTl9p0
+
+https://tv360.vn/tv/outdoor-hd?ch=216&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/146/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0MjcsInVyaSI6Ii9icGstdHYvMTQ2L291dHB1dC9pbmRleC5tM3U4In0.XSIq5hRlO80gQ3j82BJNqhkehBPHIXeYbU5ZMXoY2Bg&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/g2raemvrietdfzxnizptpiqcgi3kears/bpk-tv/146/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NDcsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4NjgyOSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTQ2X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDJfMTcyLjI0LjE3LjY5OjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4NjgyOSwKICAgICAidXJsIjoiL2Jway10di8xNDYvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJnMnJhZW12cmlldGRmenhuaXpwdHBpcWNnaTNrZWFycyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxNDZfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.FZArtvqZ2yAdsBl27jsMQel1JXVkaPtJ7f1OmvxrgtE
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/g2raemvrietdfzxnizptpiqcgi3kears/bpk-tv/146/output/146-audio_198800_eng_iv_3=196800-video_iv_3=1067600.m3u8
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/g2raemvrietdfzxnizptpiqcgi3kears/bpk-tv/146/output/146-audio_198800_eng_iv_3=196800-video_iv_3=5256400.m3u8
+
+https://tv360.vn/tv/channel-news-asia?ch=112&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/433/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0MzMsInVyaSI6Ii9icGstdHYvNDMzL291dHB1dC9pbmRleC5tM3U4In0.64nTyzrRHfoSIrYOrQBEGVldTmp3EqBhNmJw3Ivlx9U&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec01-pop3-hht.tv360.vn/bpk-token/sbwc6cqxr4fquqbdnntze3bpbkigylyk/bpk-tv/433/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NTYsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4NjgzNywKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDMzX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDFfMTcyLjI0LjE3LjY4OjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4NjgzNywKICAgICAidXJsIjoiL2Jway10di80MzMvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJzYndjNmNxeHI0ZnF1cWJkbm50emUzYnBia2lneWx5ayIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0MzNfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.QL2vb0xRBQqElpT3mfJr_rDBmVj1AXZlLRkk7TPGhi4
+  [network] https://ec01-pop3-hht.tv360.vn/bpk-token/sbwc6cqxr4fquqbdnntze3bpbkigylyk/bpk-tv/433/output/433-audio_198800_eng_iv_2=196800-video_iv_2=1067600.m3u8
+  [network] https://ec01-pop3-hht.tv360.vn/bpk-token/sbwc6cqxr4fquqbdnntze3bpbkigylyk/bpk-tv/433/output/433-audio_198800_eng_iv_2=196800-video_iv_2=5256400.m3u8
+
+https://tv360.vn/tv/afn-hd?ch=215&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/178/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0MzksInVyaSI6Ii9icGstdHYvMTc4L291dHB1dC9pbmRleC5tM3U4In0.ZIr8nRSHo6VFQ_Zf7nIxuPdZV4I_ZTLOVCu10daTnNI&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec03-pop3-hht.tv360.vn/bpk-token/wmd72zzu4tmwoy2ixeflab75m6zqp7lh/bpk-tv/178/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NjEsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4Njg0MiwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTc4X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDNfMTcyLjI0LjE3LjcwOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4Njg0MiwKICAgICAidXJsIjoiL2Jway10di8xNzgvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ3bWQ3Mnp6dTR0bXdveTJpeGVmbGFiNzVtNnpxcDdsaCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxNzhfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.JC5oxuRltJQKdEVa7-pe_mjYsDFoGv03ey19vrYa8EI
+  [network] https://ec03-pop3-hht.tv360.vn/bpk-token/wmd72zzu4tmwoy2ixeflab75m6zqp7lh/bpk-tv/178/output/178-audio_198800_eng_iv_1=196800-video_iv_1=1067600.m3u8
+  [network] https://ec03-pop3-hht.tv360.vn/bpk-token/wmd72zzu4tmwoy2ixeflab75m6zqp7lh/bpk-tv/178/output/178-audio_198800_eng_iv_1=196800-video_iv_1=5256400.m3u8
+
+https://tv360.vn/tv/hgtv?ch=99&col=2&sect=LIVE&page=home_live&c=0
+  (no .m3u8 found)
+
+https://tv360.vn/tv/kbs-world?ch=213&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/422/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0NDIsInVyaSI6Ii9icGstdHYvNDIyL291dHB1dC9pbmRleC5tM3U4In0.z72H6Z9cSCno6SOdxlXbAQdi-VzgyCrey9xceWUYIXQ&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec04-pop3-hht.tv360.vn/bpk-token/b62kqueik6gfbx735q6qxnfikah3jkcq/bpk-tv/422/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NjQsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4Njg0NSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDIyX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDRfMTcyLjI0LjE3LjcxOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4Njg0NSwKICAgICAidXJsIjoiL2Jway10di80MjIvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJiNjJrcXVlaWs2Z2ZieDczNXE2cXhuZmlrYWgzamtjcSIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0MjJfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.zrhd0ezdUeJxEfRPPwL6gy-7AD8Mz6ZcPEnwQ9e0OqQ
+  [network] https://ec04-pop3-hht.tv360.vn/bpk-token/b62kqueik6gfbx735q6qxnfikah3jkcq/bpk-tv/422/output/422-audio_214835_und_iv_3=214800-video_iv_3=1064800.m3u8
+  [network] https://ec04-pop3-hht.tv360.vn/bpk-token/b62kqueik6gfbx735q6qxnfikah3jkcq/bpk-tv/422/output/422-audio_214835_und_iv_3=214800-video_iv_3=5254000.m3u8
+
+https://tv360.vn/tv/dw?ch=109&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/432/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0NDgsInVyaSI6Ii9icGstdHYvNDMyL291dHB1dC9pbmRleC5tM3U4In0.ZOip46ejsJXw1z5EnjwrsbcBJ3SWCbZNwnvNAMAzyzE&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec04-pop3-hht.tv360.vn/bpk-token/hcsmguv7i7tvf2hlq47t3jgdki4kjq2s/bpk-tv/432/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NjksCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4Njg1MCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDMyX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDRfMTcyLjI0LjE3LjcxOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4Njg1MCwKICAgICAidXJsIjoiL2Jway10di80MzIvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJoY3NtZ3V2N2k3dHZmMmhscTQ3dDNqZ2RraTRranEycyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0MzJfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.YHPw5-vn5id5rjyYz6-EZQ2bpwm5khjzM4KfbH3N750
+  [network] https://ec04-pop3-hht.tv360.vn/bpk-token/hcsmguv7i7tvf2hlq47t3jgdki4kjq2s/bpk-tv/432/output/432-audio_198800_eng_iv_2=196800-video_iv_2=1067600.m3u8
+  [network] https://ec04-pop3-hht.tv360.vn/bpk-token/hcsmguv7i7tvf2hlq47t3jgdki4kjq2s/bpk-tv/432/output/432-audio_198800_eng_iv_2=196800-video_iv_2=5256400.m3u8
+
+https://tv360.vn/tv/nhk?ch=106&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://rr1-ateme.tv360.vn/live/eds/467/HLS_Clean_MHL_2s/467.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ2Ny9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5NTUwODQ0OH0.Aqm_fbaUKXcXiIbX5i6PX2GUmwTrSAB29IUXp999kIl6HG23duNFXNb8TPDQYyjZCLFhBW3kQCdMmXPVf9TCtA&screen=MHL&uid=14.191.207.141
+  [network] https://pop19-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDUyIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjEwZGFiYmNmZjNhMjA0MWIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MiIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.5zUgzKbFlILvUtLj9UIaFD_7BewmhTmHm5KUKDKI_s7pLNabQ2fPkEWTw1PYj2aDi4vfZoFBVpzRrZ1XlQ-0xg==/live/eds/467/HLS_Clean_MHL_2s/467.m3u8?screen=MHL&uid=14.191.207.141
+  [network] https://pop19-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDUyIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjEwZGFiYmNmZjNhMjA0MWIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MiIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.5zUgzKbFlILvUtLj9UIaFD_7BewmhTmHm5KUKDKI_s7pLNabQ2fPkEWTw1PYj2aDi4vfZoFBVpzRrZ1XlQ-0xg==/live/eds/467/HLS_Clean_MHL_2s/467-avc1_1000000=10004-mp4a_214800_eng=20002.m3u8
+  [network] https://pop19-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDUyIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjEwZGFiYmNmZjNhMjA0MWIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MiIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.5zUgzKbFlILvUtLj9UIaFD_7BewmhTmHm5KUKDKI_s7pLNabQ2fPkEWTw1PYj2aDi4vfZoFBVpzRrZ1XlQ-0xg==/live/eds/467/HLS_Clean_MHL_2s/467-avc1_5100000=10007-mp4a_214800_eng=20002.m3u8
+
+https://tv360.vn/tv/france-24?ch=96&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/470/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0NTEsInVyaSI6Ii9icGstdHYvNDcwL291dHB1dC9pbmRleC5tM3U4In0.CRTMOfMTfQCFEvNy2LO0XbwqbKzqVbGn9l0S0yEfOhQ&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/txp66vq2htfvmtmqvm5zxx7pk2o5732w/bpk-tv/470/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NzMsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4Njg1NCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDcwX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDJfMTcyLjI0LjE3LjY5OjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4Njg1NCwKICAgICAidXJsIjoiL2Jway10di80NzAvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ0eHA2NnZxMmh0ZnZtdG1xdm01enh4N3BrMm81NzMydyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0NzBfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.kaIAFlLFXxc1e6Ja0NrFyY6mZiXZU88fU6G92ApkIB4
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/txp66vq2htfvmtmqvm5zxx7pk2o5732w/bpk-tv/470/output/470-audio_198800_eng=196800-video=1067600.m3u8
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/txp66vq2htfvmtmqvm5zxx7pk2o5732w/bpk-tv/470/output/470-audio_198800_eng=196800-video=3417600.m3u8
+  [network] https://ec02-pop3-hht.tv360.vn/bpk-token/txp66vq2htfvmtmqvm5zxx7pk2o5732w/bpk-tv/470/output/470-audio_198800_eng=196800-video=5256400.m3u8
+
+https://tv360.vn/tv/tv5?ch=9852&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://rr1-ateme.tv360.vn/live/eds/468/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ2OC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5NTUwODQ1N30.cz9AvlZJ7hlg_dm0goqKFrK0lrf467b3yfUKam4xeP7ZSZHATtsK2rSzSTGYNcx8Wh8YXx4bDk_4ibARZQU8wg&screen=MHL&uid=14.191.207.141
+  [network] https://pop18-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDU5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjgvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjJhN2YxNWFiZGQ5MWJmOTgiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.tj-UAi9pgAw9Z_6_82ySkOAezPl0Qvt8FcKTTOW52TGrRfjTs5I__xcJmJNHl_3SPdX2PRxSg3l4fwnh10vSNg==/live/eds/468/HLS_Clean_MHL_2s/index.m3u8?screen=MHL&uid=14.191.207.141
+  [network] https://pop18-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDU5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjgvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjJhN2YxNWFiZGQ5MWJmOTgiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.tj-UAi9pgAw9Z_6_82ySkOAezPl0Qvt8FcKTTOW52TGrRfjTs5I__xcJmJNHl_3SPdX2PRxSg3l4fwnh10vSNg==/live/eds/468/HLS_Clean_MHL_2s/468-avc1_1000000=10006-mp4a_196800_eng=20000.m3u8
+  [network] https://pop18-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDU5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjgvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjJhN2YxNWFiZGQ5MWJmOTgiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.tj-UAi9pgAw9Z_6_82ySkOAezPl0Qvt8FcKTTOW52TGrRfjTs5I__xcJmJNHl_3SPdX2PRxSg3l4fwnh10vSNg==/live/eds/468/HLS_Clean_MHL_2s/468-avc1_5099968=10005-mp4a_196800_eng=20000.m3u8
+
+https://tv360.vn/tv/history-hd?ch=9856&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/191/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0NTcsInVyaSI6Ii9icGstdHYvMTkxL291dHB1dC9pbmRleC5tM3U4In0.MtKjv_s2-DvCZY9YQyS8Ev_PifRjcVu0NVz3k9p71HY&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec03-pop3-hht.tv360.vn/bpk-token/v2gks6zjn6gxw7wd5ulktdfjpoxizkl3/bpk-tv/191/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1NzgsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4Njg2MCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTkxX0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDNfMTcyLjI0LjE3LjcwOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4Njg2MCwKICAgICAidXJsIjoiL2Jway10di8xOTEvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ2MmdrczZ6am42Z3h3N3dkNXVsa3RkZmpwb3hpemtsMyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxOTFfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.qjeIg5cjVUiEuBiJl4TOo1qCkow4tkEtCGf9ByaSNvg
+  [network] https://ec03-pop3-hht.tv360.vn/bpk-token/v2gks6zjn6gxw7wd5ulktdfjpoxizkl3/bpk-tv/191/output/191-audio_214835_und_iv_1=214800-video_iv_1=1064800.m3u8
+  [network] https://ec03-pop3-hht.tv360.vn/bpk-token/v2gks6zjn6gxw7wd5ulktdfjpoxizkl3/bpk-tv/191/output/191-audio_214835_und_iv_1=214800-video_iv_1=5254000.m3u8
+
+https://tv360.vn/tv/kix?ch=9901&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://fo-hlc.tv360.vn/bpk-tv/166/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTU1MDg0NjAsInVyaSI6Ii9icGstdHYvMTY2L291dHB1dC9pbmRleC5tM3U4In0.JYNJkm9rVLuuRazxc2cXmGPphyEp6bxPnr1T8EYB-DE&minrate=0&maxrate=12000000&uid=14.191.207.141
+  [network] https://ec05-pop3-hht.tv360.vn/bpk-token/emhbcune5u2vd42bku6cwdqrkerq4ekr/bpk-tv/166/output/index.m3u8?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTU1MDg1ODEsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5NTQ4Njg2MiwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMTY2X0hMUyIsCiAgICAgInBuYSI6IlZpZXR0ZWwiLAogICAgICJybmEiOiIiLAogICAgICJwbiI6IlBPUC1IQ00tUE9QMyIsCiAgICAgImVuIjoiRURHRS1IQ00tUE9QMyIsCiAgICAgImNjIjoiVk4iLAogICAgICJyYyI6IkNUIiwKICAgICAiYWNuIjoiQ09SRS1IQ00tUE9QMyIsCiAgICAgImlzcCI6IlZOUFQiLAogICAgICJhc24iOiI0NTg5OSIsCiAgICAgInZzIjoiQktTNDAwLVBPUDMtMDVfMTcyLjI0LjE3LjcyOjIwMDAwIiwKICAgICAibnQiOiJPVFQiLAogICAgICJ0dHAiOjAsCiAgICAgInBsaWQiOiIiLAogICAgICJwdWlkIjoiIiwKICAgICAidGVpZCI6IiIKICB9LAogICJvdCI6ewogICAgICJ0cyI6MTc5NTQ4Njg2MiwKICAgICAidXJsIjoiL2Jway10di8xNjYvb3V0cHV0L2luZGV4Lm0zdTg_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJlbWhiY3VuZTV1MnZkNDJia3U2Y3dkcXJrZXJxNGVrciIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjE5MS4yMDcuMTQxIiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIxNjZfSExTIiwKICAgICAgICAidHlwIjoiTElWRSIKICAgICB9LAogICAgICJ0byI6ewogICAgICAgIAogICAgICAgICAKICAgICAgICAic3UiOjAsCiAgICAgICAgInJjIjoxNTAKICAgICB9LAogICAgICJsYXkiOiB7CiAgICAgICJsc3QiOltdLAogICAgICAibWF4IjoxMjAwMDAwMCwKICAgICAgIm1pbiI6MAogICAgIH0sCiAgICAgInJzaCI6MCwKICAgICAicnNocCI6MTAwLAogICAgICJvYmYiOmZhbHNlLAogICAgICJ0YWdzIjp7fQogIH0KfQ.GvW23WQtagLKD1X7aZesNYDd7USoU6nuAjjHSR6AmzY
+  [network] https://ec05-pop3-hht.tv360.vn/bpk-token/emhbcune5u2vd42bku6cwdqrkerq4ekr/bpk-tv/166/output/166-audio_214835_und=214800-video=1064800.m3u8
+  [network] https://ec05-pop3-hht.tv360.vn/bpk-token/emhbcune5u2vd42bku6cwdqrkerq4ekr/bpk-tv/166/output/166-audio_214835_und=214800-video=5254000.m3u8
+
+https://tv360.vn/tv/france-24-sd?ch=10007&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://rr1-ateme.tv360.vn/live/eds/287/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzI4Ny9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5NTUwODQ2Nn0.WfHiBcpwBBxvhWJ8wIyoEzKzfgacMDJ41E1gy-2i5STUetoKVqMc9YnWMJS_uI4pcDO-7QIL8A5edm0_rtgcww&screen=MHL&uid=14.191.207.141
+  [network] https://pop18-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDY5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8yODcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjQ4MGMzZGQyYzg1ZTFjYmIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.MoOYBdgo4m6BpuVMDpleWqvOP-HwLGkwH3RVsiTAvLQn0jnUP7m7thYCsEUl_uQHGYJ3Yc3URKfoefESSflwGw==/live/eds/287/HLS_Clean_MHL_2s/index.m3u8?screen=MHL&uid=14.191.207.141
+  [network] https://pop18-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDY5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8yODcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjQ4MGMzZGQyYzg1ZTFjYmIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.MoOYBdgo4m6BpuVMDpleWqvOP-HwLGkwH3RVsiTAvLQn0jnUP7m7thYCsEUl_uQHGYJ3Yc3URKfoefESSflwGw==/live/eds/287/HLS_Clean_MHL_2s/287-avc1_1000000=10004-mp4a_143200=20001.m3u8
+  [network] https://pop18-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDY5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8yODcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjQ4MGMzZGQyYzg1ZTFjYmIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.MoOYBdgo4m6BpuVMDpleWqvOP-HwLGkwH3RVsiTAvLQn0jnUP7m7thYCsEUl_uQHGYJ3Yc3URKfoefESSflwGw==/live/eds/287/HLS_Clean_MHL_2s/287-avc1_1400000=10003-mp4a_143200=20001.m3u8
+
+https://tv360.vn/tv/arirang?ch=111&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://rr1-ateme.tv360.vn/live/eds/466/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ2Ni9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5NTUwODQ2Nn0.1bkFSTaL6r4WSM7ViO1gbFAHHm23bt6dBPUk9lB-1tMXZS96ivHs5xISuhPleA4U5KJVteOuvVBpiaECYFTEXA&screen=MHL&uid=14.191.207.141
+  [network] https://pop19-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDcwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjYvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjM3NDk1ZmU5OTYwMDY3YWIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3NCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.zuATVKzRNejNFUTH28cQdeVwFIAzcYjUdTmyhDEWZsu8d6uPY02OrlhFQfVMTE9-b25vs936lvPnHEDUD2JuDw==/live/eds/466/HLS_Clean_MHL_2s/index.m3u8?screen=MHL&uid=14.191.207.141
+  [network] https://pop19-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDcwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjYvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjM3NDk1ZmU5OTYwMDY3YWIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3NCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.zuATVKzRNejNFUTH28cQdeVwFIAzcYjUdTmyhDEWZsu8d6uPY02OrlhFQfVMTE9-b25vs936lvPnHEDUD2JuDw==/live/eds/466/HLS_Clean_MHL_2s/466-avc1_1000000=10000-mp4a_196800_eng=20000.m3u8
+  [network] https://pop19-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDcwIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjYvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjM3NDk1ZmU5OTYwMDY3YWIiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3NCIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.zuATVKzRNejNFUTH28cQdeVwFIAzcYjUdTmyhDEWZsu8d6uPY02OrlhFQfVMTE9-b25vs936lvPnHEDUD2JuDw==/live/eds/466/HLS_Clean_MHL_2s/466-avc1_5099968=10003-mp4a_196800_eng=20000.m3u8
+
+https://tv360.vn/tv/davinci-hd?ch=214&col=2&sect=LIVE&page=home_live&c=0
+  [network] https://rr1-ateme.tv360.vn/live/eds/173/HLS_Clean_MHL_2s/173.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE3My9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5NTUwODQ2OX0.VC5ifUrf0V5Wf-KSOYta_jaxVxsoOB7CiFvhZlSoo5AR5qEndf14KHOMyEEHMUXdqXHOaCFSzy2YTKY82B87Nw&screen=MHL&uid=14.191.207.141
+  [network] https://pop18-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDcxIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xNzMvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjE5ODQwNTkzZDhhZDVmOWQiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.yOLpohjeOLSbdlxEqydHCxmT5cr_xnAE22gtNxvFZBMgvYMGir37AcbEqHS1KHhMkvmbNqkPxSyIL9D3lmOOUA==/live/eds/173/HLS_Clean_MHL_2s/173.m3u8?screen=MHL&uid=14.191.207.141
+  [network] https://pop18-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDcxIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xNzMvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjE5ODQwNTkzZDhhZDVmOWQiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.yOLpohjeOLSbdlxEqydHCxmT5cr_xnAE22gtNxvFZBMgvYMGir37AcbEqHS1KHhMkvmbNqkPxSyIL9D3lmOOUA==/live/eds/173/HLS_Clean_MHL_2s/173-avc1_1000000=10000-mp4a_214800_eng=20000.m3u8
+  [network] https://pop18-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzk1NTEyMDcxIiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xNzMvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjE5ODQwNTkzZDhhZDVmOWQiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiI3MSIsInNvdXJjZXMiOlszNDYsNDkwLDQ5Myw0OTVdfQ==.yOLpohjeOLSbdlxEqydHCxmT5cr_xnAE22gtNxvFZBMgvYMGir37AcbEqHS1KHhMkvmbNqkPxSyIL9D3lmOOUA==/live/eds/173/HLS_Clean_MHL_2s/173-avc1_5100000=10003-mp4a_214800_eng=20000.m3u8
+`;
+const norm = t => t.toLowerCase().replace(/[^a-z0-9]/g, "");
+const names = groups.flatMap(g => g.channels.map(c => c.name));
+function findName(key) {
+  const k = norm(key);
+  if (!k) return null;
+  return names.find(n => norm(n) === k) || names.find(n => norm(n).startsWith(k) || k.startsWith(norm(n))) || null;
+}
+const extra = {};
+let cur = null;
+LINK_TEXT.split("\n").forEach(line => {
+  const s = line.replace("[network]", "").trim();
+  if (!s || s[0] === "(") return;
+  if (/\.m3u8/i.test(s)) {
+    if (cur) (extra[cur] = extra[cur] || []).push(s);
+  } else if (/^https?:\/\//i.test(s)) {
+    const m = s.match(/\/(?:live|tv)\/([^?\/]+)/);
+    cur = m ? findName(m[1]) : null;
+  } else cur = findName(s);
+});
+for (const k in extra) extra[k] = [...new Set(extra[k])];
 
 /* ===== Logo settings ===== */
-const LOGO_DIR = "logo/";                                            // folder that holds the logo files
-const LOGO_EXTS = ["png", "jpg", "jpeg", "webp", "svg", "gif", "avif"]; // file types to try
+const LOGO_DIR = "logo/";
+const LOGO_EXTS = ["png", "jpg", "jpeg", "webp", "svg", "gif", "avif"];
 const slug = t => t.toLowerCase().replace(/đ/g, "d").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-// Looks for logo/<channel name>.<any type>. Optional: logo = full link, file = a different file name.
+// logo = full link | file = file name in logo/ | otherwise the channel name (any file type)
 function logoSources(c) {
   if (c.logo) return [c.logo];
   const base = (c.file || slug(c.name)).replace(/\.[a-z0-9]+$/i, "");
   return [...LOGO_EXTS, ...LOGO_EXTS.map(e => e.toUpperCase())].map(e => LOGO_DIR + base + "." + e);
 }
-/* ========================= */
-
 
 const $ = id => document.getElementById(id);
 const TV = '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 21h6M12 18v3"/></svg>';
 const PLAY = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M0 0l12 6-12 6z"/></svg>';
 
 const channels = [];
-groups.forEach(g => g.channels.forEach(c => channels.push({ ...c, group: g.title })));
+groups.forEach(g => g.channels.forEach(c => channels.push({ ...c, group: g.title, urls: extra[c.name] || c.urls })));
 
 function logoEl(src) {
-  const list = Array.isArray(src) ? src.slice() : (src ? [src] : []);
+  const list = src.slice();
   const s = document.createElement("span");
   s.className = "logo";
   const icon = () => { s.innerHTML = TV; };
@@ -268,16 +345,20 @@ function render(term = "") {
     const grid = document.createElement("div");
     grid.className = "grid";
     items.forEach(c => {
+      const links = c.urls || (c.url ? [c.url] : []);
       const card = document.createElement("div");
       card.className = "channel";
       const a = document.createElement("a");
       a.className = "open";
-      a.href = c.embed ? (c.watch || c.embed) : c.url;
-      if (c.embed) a.addEventListener("click", e => {
-        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
-        e.preventDefault();
-        openPlayer(c);
-      });
+      if (c.embed) {
+        a.href = c.watch || c.embed;
+        a.addEventListener("click", e => {
+          if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+          e.preventDefault();
+          openPlayer(c);
+        });
+      } else if (links.length) a.href = links[0];
+      else card.classList.add("off");
       const n = document.createElement("span");
       n.className = "name";
       n.textContent = c.name;
@@ -286,6 +367,25 @@ function render(term = "") {
       p.innerHTML = PLAY;
       a.append(logoEl(logoSources(c)), n, p);
       card.appendChild(a);
+      if (!c.embed && links.length > 1) {
+        card.classList.add("multi");
+        const k = document.createElement("small");
+        k.className = "cnt";
+        k.textContent = " · " + links.length + " link";
+        n.appendChild(k);
+        const box = document.createElement("div");
+        box.className = "links";
+        links.forEach((u, i) => {
+          const b = document.createElement("a");
+          b.href = u;
+          b.textContent = "Link " + (i + 1);
+          box.appendChild(b);
+        });
+        card.appendChild(box);
+        a.addEventListener("click", e => {
+          if (matchMedia("(hover: none)").matches) { e.preventDefault(); card.classList.toggle("show"); }
+        });
+      }
       grid.appendChild(card);
     });
     sec.append(h, grid);
@@ -298,9 +398,7 @@ function render(term = "") {
 function openPlayer(c) {
   if (!/^https:\/\//i.test(c.embed)) return;
   $("pTitle").textContent = c.name;
-  const l = $("pLink");
-  l.href = c.watch || c.embed;
-  l.hidden = false;
+  $("pLink").href = c.watch || c.embed;
   const f = document.createElement("iframe");
   f.src = c.embed;
   f.title = c.name;
@@ -314,6 +412,9 @@ $("player").addEventListener("close", () => $("pFrame").replaceChildren());
 $("player").addEventListener("click", e => { if (e.target === $("player")) $("player").close(); });
 
 $("q").addEventListener("input", e => render(e.target.value));
+document.addEventListener("click", e => {
+  document.querySelectorAll(".channel.show").forEach(c => { if (!c.contains(e.target)) c.classList.remove("show"); });
+});
 render();
 </script>
 </body>
